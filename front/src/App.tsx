@@ -11,7 +11,6 @@ import axios from 'axios'
 import env from "react-dotenv"
 
 
-
 const App:FunctionComponent = () => {
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`

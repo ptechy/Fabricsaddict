@@ -2,19 +2,36 @@
 
  import ProductAction from '../../Models/Products/ProductAction'
  import Product from '../../Models/Products/Product'
- import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART } from "../Actions/actionTypes"
+ import Customer from '../../Models/Customer/Customer'
 
-  const initialState: Product[] = []
+ import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART, ADD_CUSTOMER } from "../Actions/actionTypes"
+ import ProductState from '../../Models/Products/ProductState'
 
 
-  const productReducer = (state:Product[] = initialState, productAction:ProductAction) => {
+  const saveToLocalStorage = (state:ProductState) => {
+    const str = JSON.stringify(state)
+    console.log("localStorage : \n\r" + str)
+    localStorage.setItem("state", str )
+  }
+
+  const resetLocalStorage = () => {
+    localStorage.clear()
+  }
+
+  const initialState: ProductState = localStorage.getItem("state") != null
+  ? JSON.parse(localStorage.getItem("state")) 
+  : new ProductState([], [])
+
+
+  const productReducer = (state:ProductState = initialState, productAction:ProductAction) : ProductState =>  {
       
     switch (productAction.type) {
       case ADD_TO_CART:
-        let nb = state.filter( item =>item._id === productAction.payload._id )
+
+        let nb = state.products.filter( item =>item._id === productAction.payload._id )
         if(nb.length >0)
         {
-          return state.map( item =>{
+          const finalItem: Product[] = state.products.map( item =>{
             if(item._id === productAction.payload._id)
             {
               const finalQty    = item.quantity + productAction.payload.quantity 
@@ -23,25 +40,47 @@
               
             return item
           })
+          const np = new ProductState(state.customers, finalItem)
+          saveToLocalStorage(np)
+          return np
         }
-        return [...state, productAction.payload];
+
+        const npr = new ProductState(state.customers, [...state.products, productAction.payload])
+        saveToLocalStorage(npr)
+        return npr
 
       case UPDATE_CART:
-        return state.map( item =>{
+        const finalUpdate = state.products.map( item =>{
           if(item._id === productAction.payload._id)
           {
             return  productAction.payload
           }              
           return item
         });
+        const nprod =   new ProductState(state.customers, finalUpdate)
+        saveToLocalStorage(nprod)
+        return nprod
 
       case REMOVE_FROM_CART:
-        return state.filter(item => item._id !== productAction.payload._id);
+        const finalRemove = state.products.filter(item => item._id !== productAction.payload._id);
+        const rmv =  new ProductState(state.customers, finalRemove)
+        saveToLocalStorage(rmv)
+        return rmv
 
       case SAVE_CART:
-        return [...state, productAction.payload];
+        return  state
+
       case RESET_CART:
-        return [];
+        resetLocalStorage()
+        return new ProductState([], []);
+
+      case ADD_CUSTOMER:
+      const finalCustomer = {...state.customers, ...productAction.payload}
+      const npdt =  new ProductState([finalCustomer], state.products);
+      saveToLocalStorage(npdt)
+      return npdt
+ 
+
       default:
         return state;
     }

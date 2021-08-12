@@ -44,7 +44,7 @@ const CartRow: FunctionComponent<Props> =  (props) => {
 
 
     return (
-        <tr key={props.key} >
+        <tr  >
         <td>
             <img
             width="70"
@@ -61,7 +61,9 @@ const CartRow: FunctionComponent<Props> =  (props) => {
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => {
-                if (qty > 1) {update(props.Item, 'decrement') }
+                    if (qty > 1) {
+                        update(props.Item, 'decrement') 
+                    }
                 }}
                 >
                 -
@@ -70,7 +72,9 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             <button
                 type="button"
                 className="btn btn-secondary"
-                onClick={() =>  {update(props.Item, 'increment')}}
+                onClick={() =>  {
+                    update(props.Item, 'increment')
+                }}
                 >
                 +
             </button>

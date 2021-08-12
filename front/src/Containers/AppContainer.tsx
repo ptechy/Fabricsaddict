@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
 import App  from '../App'
-import Product from '../Models/Products/Product'
+import ProductState from '../Models/Products/ProductState'
 import {  saveCart } from '../State/Actions/ActionCreators'
 import { Dispatch } from 'redux';
 
 
-const mapStateToProps = (state:Product[]) => { 
+const mapStateToProps = (state:ProductState) => { 
     return { items: state }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch)  => { 
     return {
-       saveLocalStorage: (items: Product[]) =>  dispatch(saveCart(items))
+       saveLocalStorage: (items: ProductState) =>  dispatch(saveCart(items))
     }
 }
 

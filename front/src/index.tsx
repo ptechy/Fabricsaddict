@@ -9,9 +9,6 @@ const store = configureStore()
 const unsubscribe = store.subscribe(() => console.log(store.getState()))
 unsubscribe()
 
-ReactDOM.render(
-    <Provider store={store}>
-        <AppContainer />
-    </Provider>
-    , document.getElementById("root")
+ReactDOM.render( <Provider store={store}><AppContainer /></Provider>, 
+                 document.getElementById("root")
 );

@@ -1,6 +1,12 @@
 import Product from './Product'
+import Customer from '../Customer/Customer' 
  
- 
- export default interface ProductState {
-    products:Product[]
+ export default class  ProductState {
+
+  constructor( readonly customers:  Customer[], readonly products: Product[])  { 
+    this.customers = customers;
+    this.products = products;
+
+  }
+
   };

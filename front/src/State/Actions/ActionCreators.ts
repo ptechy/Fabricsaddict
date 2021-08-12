@@ -1,6 +1,8 @@
 
-import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART } from "./actionTypes"
+import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART, ADD_CUSTOMER, UPDATE_CUSTOMER } from "./actionTypes"
 import Product from '../../Models/Products/Product'
+import Customer from '../../Models/Customer/Customer'
+import ProductState from "../../Models/Products/ProductState"
 
 
 /*
@@ -32,7 +34,7 @@ export const removeFromCart = (item:Product) =>{
  }
 
  
-export const saveCart = (items:Product[]) =>{
+export const saveCart = (items:ProductState) =>{
      return {
          type: SAVE_CART, 
          payload: items
@@ -40,9 +42,26 @@ export const saveCart = (items:Product[]) =>{
  }
 
 
- export const resetCart = () => {
+export const resetCart = () => {
     return {
         type: RESET_CART, 
         payload: []
+    }
+}
+
+
+export const addCustomer = (item:Customer) => {
+    return {
+        type: ADD_CUSTOMER, 
+        payload: item
+    }
+}
+
+
+
+export const updateCustomer = (item:Customer) => {
+    return {
+        type: UPDATE_CUSTOMER, 
+        payload: item
     }
 }

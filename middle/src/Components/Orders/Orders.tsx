@@ -2,14 +2,14 @@ import React, {  FunctionComponent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux'
-import { addToCart,updateCart, updateCustomer } from  '../../State/Actions/ActionCreators'
-//import Delivery from '../Delivery/Delivery'
+import {  useHistory} from "react-router-dom";
+import Product from '../../Models/Products/Product'
+
 
 type Props = {
+  Item: Product,
     Idx : number
-   };
-
+ };
 const Checkout: FunctionComponent<Props> =  (props) =>{
 
     // form validation rules 
@@ -18,44 +18,20 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
           .required('le prénom est obligatoire')
           .min(2, 'le prénom doit contenir au moins 2 caractères')
           .max(20, 'le prénom contient au maximum 20 caractères'),
-      lastName: Yup.string()
-          .required('le nom est obligatoire')
-          .min(2, 'le nom doit contenir au moins 2 caractères')
-          .max(20, 'le nom contient au maximum 20 caractères'),
-      email: Yup.string()
-          .required('l\'email est obligatoire')
-          .email('l\'email est invalid'),
-      address: Yup.string()
-          .required('l\'adresse est obligatoire')
-          .min(2, 'l\'adresse doit contenir au moins 2 caractères')
-          .max(50, 'le nom contient au maximum 50 caractères'),    
-      zipCode: Yup.number()
-          .required('le code postal est obligatoire'),      
-      city: Yup.string()
-          .required('la ville est obligatoire')
-          .min(2, 'la ville doit contenir au moins 2 caractères')
-          .max(50, 'la ville contient au maximum 50 caractères'),          
-          
-          
-
+   
   });
-
-  const formOptions = { resolver: yupResolver(validationSchema) };
-  const dispatch = useDispatch()
-    const isValid = true;
+  
+  let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
+  let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + 'tissu.jpg';
+    const history = useHistory();
+    const formOptions = { resolver: yupResolver(validationSchema) };
     const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
     
     const onSubmit = (item: any) => {         
-        // display form data on success
+    
+      history.push("/ConfirmDelivery")
 
-        console.log("labas");    
-     //   console.log(JSON.stringify(item, null, 4));    
-        
-        dispatch(updateCustomer(item))
-
-
-    }
-
+  }
 
 
     return (

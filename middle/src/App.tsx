@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import NavBar from './Components/NavBar/NavBar'
 import Main from './Components/Home/Main'
 import Product from './Models/Products/Product'
-import Cart from './Components/Cart/Cart'
-import Checkout from './Components/Checkout/Checkout'
+import Card from './Components/Card/Card'
 import Category from './Models/Fabric/Category'
+import Orders from './Components/Orders/Orders'
+import Upload from './Components/Upload/Upload'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -75,7 +76,7 @@ const App:FunctionComponent = () => {
     <Router>
       <Fragment>
       <div className="container" >
-        
+
           <NavBar  FilteredResults={setfilteredResults} CustomItems={customItems} Filtered={filtered} />  
 
           <Route exact path="/" component={() => <Main CustomProducts={filtered ? customItems : customProducts}   
@@ -85,8 +86,9 @@ const App:FunctionComponent = () => {
           <Route path="/main" component={() => <Main CustomProducts={filtered ? customItems : customProducts} 
                                                      Titles = {titles} 
                                                      LoadCategory={loadCategory} /> } />
-          <Route path="/cart" component={Cart}/>
-          <Route path="/checkout" component={Checkout}/>     
+          <Route path="/Card" component={Card}/>
+          <Route path="/Orders" component={Orders}/>    
+          <Route path="/Upload" component={Upload} />    
       </div>
       </Fragment>
     </Router>

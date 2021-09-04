@@ -2,7 +2,7 @@ import React, {FunctionComponent, Fragment,useState,useEffect} from 'react'
 import Product from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
-import { updateCart, removeFromCart } from  '../../State/Actions/ActionCreators'
+import { addToCart,updateCart, removeFromCart } from  '../../State/Actions/ActionCreators'
 
 type Props = {
     Item: Product,

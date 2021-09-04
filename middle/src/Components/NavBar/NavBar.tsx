@@ -30,7 +30,7 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
             </div>
             <div className="col-sm-4">
                 <nav className="navbar navbar-light bg-white">
-                <Link to="/Categories" className="navbar-brand">
+                <Link to="/Upload" className="navbar-brand">
                             Upload
                  </Link>
                 <Link to="/Categories" className="navbar-brand">

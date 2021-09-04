@@ -26,6 +26,7 @@ const Cart: FunctionComponent<Props> =  (props) =>{
 
       setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0))
       setTotal(subTotal + shipping)
+      
       if(items.length >0)
         setCheckOutView(false)
 

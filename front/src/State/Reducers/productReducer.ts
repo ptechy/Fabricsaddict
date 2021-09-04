@@ -75,7 +75,7 @@
         return new ProductState([], []);
 
       case ADD_CUSTOMER:
-      const finalCustomer = {...state.customers, ...productAction.payload}
+      const finalCustomer = productAction.payload
       const npdt =  new ProductState([finalCustomer], state.products);
       saveToLocalStorage(npdt)
       return npdt

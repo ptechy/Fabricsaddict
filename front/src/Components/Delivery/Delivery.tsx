@@ -14,7 +14,7 @@ const SVGTruck = () => (
       x="0px"
       y="0px"
       viewBox="0 0 370 225"
-      enable-background="new 0 0 370 225"
+      enableBackground="new 0 0 370 225"
     >
       <path
         id="wheel--front"
@@ -50,9 +50,11 @@ const SVGTruck = () => (
 )
 
 
+
 type Props = {
-    Idx : number
-   };
+  Idx : NumberConstructor,
+  Redirect: boolean
+ };
 
 const Delivery: FunctionComponent<Props> =  (props) =>{
 
@@ -71,7 +73,7 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
                   <hr />
           
                   <p className="lead">
-                    <strong>Your order is on its way to your home</strong>
+                    <strong>Your order is on its way to your homeS</strong>
                     <br /> <br />
                     <Link className="btn btn-primary btn-sm" to="/" onClick={() => reset()}>
                       Continue to homepage

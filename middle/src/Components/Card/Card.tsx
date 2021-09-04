@@ -35,14 +35,11 @@ const Card: FunctionComponent<Props> =  (props) =>{
     //   dispatch(addtoCart(item, quantity))
     // }
     const ref = useRef<HTMLButtonElement>(null);
-    const [tabIndex, focused, handleKeyDown, handleClick] = useRovingTabIndex(
-        ref, // Don't change the value of this ref.
-        false // But change this as you like throughout the lifetime of the component.
-      );
-      const [qty, setQty] = useState<number>(1)
+
+    const [qty, setQty] = useState<number>(1)
 
       //add and update product to bag
-      const addToBag = (product:Product, quantity:number) =>{
+    const addToBag = (product:Product, quantity:number) =>{
         dispatch(addToCart(product, quantity))
     }
 

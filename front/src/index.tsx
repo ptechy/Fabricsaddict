@@ -6,8 +6,8 @@ import { AppContainer } from './Containers/AppContainer'
 
 
 const store = configureStore()
-const unsubscribe = store.subscribe(() => console.log(store.getState()))
-unsubscribe()
+const subscribe = store.subscribe(() => console.log(store.getState()))
+subscribe()
 
 ReactDOM.render( <Provider store={store}><AppContainer /></Provider>, 
                  document.getElementById("root")

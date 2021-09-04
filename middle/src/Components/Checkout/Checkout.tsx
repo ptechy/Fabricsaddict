@@ -2,7 +2,9 @@ import React, {  FunctionComponent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart,updateCart, updateCustomer } from  '../../State/Actions/ActionCreators'
+//import Delivery from '../Delivery/Delivery'
 
 type Props = {
     Idx : number
@@ -39,16 +41,20 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
-
+  const dispatch = useDispatch()
     const isValid = true;
     const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
     
-    const onSubmit = (data: any) => {         
+    const onSubmit = (item: any) => {         
         // display form data on success
-        console.log(JSON.stringify(data, null, 4));     
+
+        console.log("labas");    
+     //   console.log(JSON.stringify(item, null, 4));    
+        
+        dispatch(updateCustomer(item))
+
 
     }
-
 
 
 

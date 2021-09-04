@@ -2,7 +2,7 @@ import React, { Fragment, FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import Product from '../../Models/Products/Product'
 import ProductState from '../../Models/Products/ProductState'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import './NavBar.css';
 
 type Props = {
@@ -28,19 +28,17 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
             </Link>
               
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
                 <nav className="navbar navbar-light bg-white">
-                    <div className="container-fluid">
-                        <form className="d-flex">
-                        <input className="form-control me-2" 
-                                type="search" 
-                                placeholder="Search" 
-                                aria-label="Search"
-                                defaultValue = ""
-                                onChange={(e)=>{ props.FilteredResults(props.CustomItems, e.target.value)}} />
-                        <button className="btn btn-outline-success"  >Search</button>
-                        </form>
-                    </div>
+                <Link to="/Categories" className="navbar-brand">
+                            Upload
+                 </Link>
+                <Link to="/Categories" className="navbar-brand">
+                            Categories
+                 </Link>
+                 <Link to="/Orders" className="navbar-brand">
+                            Orders
+                </Link>
                 </nav>
             </div>
             <div className="col-sm">
@@ -49,13 +47,7 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
                         <Link to="/main" className="navbar-brand">
                             <img src="img/home.svg" alt="Accueil" width="24" height="24" />
                         </Link>
-                        <Link to="/" className="navbar-brand">
-                            <img src="img/mail.svg" alt="Email" width="24" height="24" />
-                        </Link>
-                        <Link to="/Cart" className="navbar-brand" >
-                            <img src="img/basket.svg" alt="Panier" width="24" height="24"/>
-                            <span className="badge rounded-pill bg-success">{items.length > 0 && items.length}</span>
-                        </Link>
+                     
                     </div>
 				</nav>
             </div>

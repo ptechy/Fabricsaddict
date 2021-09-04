@@ -24,8 +24,8 @@ const customerSchema = new Schema({
   email: { type: String, required: true, trim: true, lowercase: true, validate: { validator: validateEmail, message: 'email is incorrect' } },
   address: { type: String, required: true, trim: true, lowercase: true, validate: { validator: addressValidation, message: 'address is incorrect' } },
   city: { type: String, required: true, trim: true, lowercase: true, validate: { validator: cityValidation, message: 'city is incorrect' }, match: matchRegex },
-  country: { type: String, required: true, trim: true, lowercase: true, validate: { validator: cityValidation, message: 'zipcode is incorrect' }, match: matchRegex },
-  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'login is incorrect' } },
+  country: { type: String, required: true, trim: true, lowercase: true, validate: { validator: cityValidation, message: 'country is incorrect' }, match: matchRegex },
+  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'zipCode is incorrect' } },
   isActive: { type: Boolean, required: true, default: true }
 })
 

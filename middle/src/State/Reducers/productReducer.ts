@@ -40,6 +40,7 @@
               
             return item
           })
+          
           const np = new ProductState(state.customers, finalItem)
           saveToLocalStorage(np)
           return np

@@ -2,10 +2,15 @@ import React, {  FunctionComponent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart,updateCart, addCustomer } from  '../../State/Actions/ActionCreators'
+import ConfirmDelivery from '../Delivery/ConfirmDelivery'
+import { Redirect } from "react-router";
+import {  useHistory} from "react-router-dom";
 
 type Props = {
-    Idx : number
+    Idx : NumberConstructor,
+    Redirect: boolean
    };
 
 const Checkout: FunctionComponent<Props> =  (props) =>{
@@ -32,24 +37,21 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
       city: Yup.string()
           .required('la ville est obligatoire')
           .min(2, 'la ville doit contenir au moins 2 caractères')
-          .max(50, 'la ville contient au maximum 50 caractères'),          
-          
-          
-
+          .max(50, 'la ville contient au maximum 50 caractères')    
+    
   });
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
-
+    const history = useHistory();
+    const formOptions = { resolver: yupResolver(validationSchema) };
+    const dispatch = useDispatch()
     const isValid = true;
     const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
     
-    const onSubmit = (data: any) => {         
-        // display form data on success
-        console.log(JSON.stringify(data, null, 4));     
+    const onSubmit = (item: any) => {         
+      dispatch(addCustomer(item))
+      history.push("/ConfirmDelivery")
 
-    }
-
-
+  }
 
 
     return (

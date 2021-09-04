@@ -75,7 +75,9 @@ const App:FunctionComponent = () => {
     <Router>
       <Fragment>
       <div className="container" >
+        
           <NavBar  FilteredResults={setfilteredResults} CustomItems={customItems} Filtered={filtered} />  
+
           <Route exact path="/" component={() => <Main CustomProducts={filtered ? customItems : customProducts}   
                                                        Titles = {titles}
                                                        LoadCategory={loadCategory} /> } />

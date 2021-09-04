@@ -9,7 +9,8 @@ import Checkout from './Components/Checkout/Checkout'
 import Category from './Models/Fabric/Category'
 import axios from 'axios'
 import env from "react-dotenv"
-
+import Delivery from './Components/Delivery/Delivery'
+import ConfirmDelivery from './Components/Delivery/ConfirmDelivery'
 
 const App:FunctionComponent = () => {
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
@@ -85,6 +86,9 @@ const App:FunctionComponent = () => {
                                                      LoadCategory={loadCategory} /> } />
           <Route path="/cart" component={Cart}/>
           <Route path="/checkout" component={Checkout}/>     
+          <Route path="/Delivery" component={Delivery}/>   
+          <Route path="/ConfirmDelivery" component={ConfirmDelivery}/>   
+          
       </div>
       </Fragment>
     </Router>

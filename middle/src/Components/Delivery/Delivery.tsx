@@ -14,7 +14,7 @@ const SVGTruck = () => (
       x="0px"
       y="0px"
       viewBox="0 0 370 225"
-      enable-background="new 0 0 370 225"
+      enableBackground="new 0 0 370 225"
     >
       <path
         id="wheel--front"

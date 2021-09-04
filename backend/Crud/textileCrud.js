@@ -43,7 +43,6 @@ const record =  (data) =>{
                             img: "azerty",
                             repo: element.repo }
             const fab = new TextileModel(doc)
-            console.log(fab)
             fab.save()
       });  
 }

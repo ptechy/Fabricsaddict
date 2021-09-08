@@ -8,5 +8,6 @@
     quantity: number,
     repo: string,
     footage:string,
-    img:string  
+    img:string ,
+    hidden:boolean 
   };

@@ -5,7 +5,7 @@ import {addDefault, getTitles, getFabricsByCategory,  getFabrics, getFabric, add
 
 import {addOrder, getOrders } from '../Crud/orderCrud'
 
-import {doUpload } from '../Crud/uploadCrud'
+
 const router = express.Router()
 
 // route for fabrics
@@ -23,7 +23,6 @@ router.get('/api/v1/orders', getOrders )
 
 router.post('/api/v1/order', addOrder )
 
-router.post('/api/v1/upload', doUpload )
 
 // router.get('/api/v1/categories', getCategories)
 

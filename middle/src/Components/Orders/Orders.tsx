@@ -1,120 +1,108 @@
-import React, {  FunctionComponent } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import {  useHistory} from "react-router-dom";
-import Product from '../../Models/Products/Product'
+import React, { FunctionComponent, useState, useEffect} from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import ProductState from '../../Models/Products/ProductState'
+import axios from 'axios'
+import env from "react-dotenv"
 
 
-type Props = {
-  Item: Product,
-    Idx : number
- };
-const Checkout: FunctionComponent<Props> =  (props) =>{
 
-    // form validation rules 
-    const validationSchema = Yup.object().shape({
-      firstName: Yup.string()
-          .required('le prénom est obligatoire')
-          .min(2, 'le prénom doit contenir au moins 2 caractères')
-          .max(20, 'le prénom contient au maximum 20 caractères'),
-   
-  });
-  
-  let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
-  let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + 'tissu.jpg';
-    const history = useHistory();
-    const formOptions = { resolver: yupResolver(validationSchema) };
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
-    
-    const onSubmit = (item: any) => {         
-    
-      history.push("/ConfirmDelivery")
 
-  }
+const Orders: FunctionComponent =  () =>{
+
+  const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
+  const base_api         = `${root_url}/${env.API_BASE_URL}`
+  const order_url        = `${base_api}/orders`
+
+
+  const [orders, setOrders]   = useState<ProductState[]>([])
+
+
+  // loading titles and products only on page refresh
+  useEffect( () => {
+
+    //get product list in central area
+    const loadOrders = async () => {
+      console.log(order_url)
+      await  axios.get(order_url)
+      .then( result => setOrders(result.data.data) )         
+      .catch(error => `Error:${error}`)
+      }
+
+      loadOrders()
+
+  }, []);
+
 
 
     return (
-        <>
-            <section className="section-content padding-y" style={{ margin: '100px auto', maxWidth: '720px' }}>
-                <div className="container" >
 
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="row">
-                                <div className="col">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="First name"
-                                    {...register('firstName')}                                    
-                                    defaultValue="" 
-                                  />
-                                   <p >{errors.firstName?.message}</p>
-                                </div>
-                                <div className="col">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Last name"                             
-                                    {...register('lastName')}
-                                    defaultValue="" 
-                                  />
-                                  <p>{errors.lastName?.message}</p>
-                                </div>
-                              </div>
-                              <br />
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Email address"
-                                  {...register('email')}   
-                                />
-                                <p >{errors.email?.message}</p>
-                              </div>
-                              <br/>
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Address"
-                                  {...register('address')}
-                                  defaultValue=""                />
-                              </div>
-                              <p >{errors.address?.message}</p>
-                              <br/>
-                              <div className="row">
-                                <div className="col">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Postal Code"
-                                   {...register('zipCode')}
-                                    defaultValue=""  />
-                                </div>
-                                <p >{errors.zipCode?.message}</p>
-                                <div className="col">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="City"
-                                    {...register('city')}
-                                    defaultValue=""         
-                                  />
-                                </div>
-                                <p >{errors.city?.message}</p>
-                              </div>
-                              <br />
-                             
-                              <input type="submit" />
+      <div>
 
-                  </form>
-                        
-                </div> 
-            </section>
-        </>
-    )
 
+      { orders.map( (productState:ProductState, index:number) => 
+
+        
+        <div className="row">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Commande #</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr><td>{productState.customers[0].firstName}       </td></tr>
+              <tr>
+
+                <td>
+                      <table className="table table-bordered">
+                        <tbody>
+                          {productState.customers.map( customer => {
+                            return Object.entries(customer).map(([key, value],  index: number) => {
+                                    <tr>
+                                      <td>{key} customer</td>
+                                      <td>{value} key={index}</td>
+                                    </tr>  
+                                  })
+                                })}
+
+                        </tbody>
+                      </table>
+
+                </td>
+              </tr>
+              <tr>
+                <td>  
+                  {
+                      productState.products.map(( product,  index: number) => {
+
+                          <table className="table table-bordered">
+                          <tbody>                            
+                            {
+                                Object.entries(product).map(([key, value],  index: number) => {
+
+                                        <tr>
+                                          <td>{key}</td>
+                                          <td>{value} key={index}</td>
+                                        </tr>
+      
+                                })
+                            }
+                          </tbody>
+                          </table>
+                      })
+                  }
+
+                </td>
+              </tr>
+            </tbody>
+          </table>           
+        </div>
+
+    )}
+   
+      </div>)
+    
 }
 
-export default Checkout
+export default Orders;

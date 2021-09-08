@@ -22,23 +22,19 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
     return (
         <Fragment>
         <div className="row fluid">
-            <div className="col-sm-3">
+            <div className="col-sm-2">
             <Link to="/" >
                 <img src="img/logo.png" alt="FabricsAddict" className="img-fluid"/>
             </Link>
               
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-8">
                 <nav className="navbar navbar-light bg-white">
-                <Link to="/Upload" className="navbar-brand">
-                            Upload
-                 </Link>
-                <Link to="/Categories" className="navbar-brand">
-                            Categories
-                 </Link>
-                 <Link to="/Orders" className="navbar-brand">
-                            Orders
-                </Link>
+                <Link to="/Orders" className="navbar-brand">Orders</Link>
+                <Link to="/Archives" className="navbar-brand">Archives</Link>
+                <Link to="/Upload" className="navbar-brand">Upload</Link>
+                <Link to="/Upload" className="navbar-brand">Update</Link>
+                <Link to="/Hidden" className="navbar-brand">Hidden</Link>
                 </nav>
             </div>
             <div className="col-sm">

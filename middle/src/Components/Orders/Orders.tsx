@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import ProductState from '../../Models/Products/ProductState'
 import axios from 'axios'
 import env from "react-dotenv"
-
+import Order from './Order'
 
 
 
@@ -23,7 +23,6 @@ const Orders: FunctionComponent =  () =>{
 
     //get product list in central area
     const loadOrders = async () => {
-      console.log(order_url)
       await  axios.get(order_url)
       .then( result => setOrders(result.data.data) )         
       .catch(error => `Error:${error}`)
@@ -33,75 +32,16 @@ const Orders: FunctionComponent =  () =>{
 
   }, []);
 
-
-
     return (
 
       <div>
+      { orders.map( (productState:ProductState, index:number) => {            
+        return <Order Item={productState} Key={index} />
+      })}
 
-
-      { orders.map( (productState:ProductState, index:number) => 
-
-        
-        <div className="row">
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Commande #</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr><td>{productState.customers[0].firstName}       </td></tr>
-              <tr>
-
-                <td>
-                      <table className="table table-bordered">
-                        <tbody>
-                          {productState.customers.map( customer => {
-                            return Object.entries(customer).map(([key, value],  index: number) => {
-                                    <tr>
-                                      <td>{key} customer</td>
-                                      <td>{value} key={index}</td>
-                                    </tr>  
-                                  })
-                                })}
-
-                        </tbody>
-                      </table>
-
-                </td>
-              </tr>
-              <tr>
-                <td>  
-                  {
-                      productState.products.map(( product,  index: number) => {
-
-                          <table className="table table-bordered">
-                          <tbody>                            
-                            {
-                                Object.entries(product).map(([key, value],  index: number) => {
-
-                                        <tr>
-                                          <td>{key}</td>
-                                          <td>{value} key={index}</td>
-                                        </tr>
-      
-                                })
-                            }
-                          </tbody>
-                          </table>
-                      })
-                  }
-
-                </td>
-              </tr>
-            </tbody>
-          </table>           
-        </div>
-
-    )}
+    </div>)
    
-      </div>)
+      
     
 }
 

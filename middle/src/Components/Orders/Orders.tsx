@@ -35,6 +35,9 @@ const Orders: FunctionComponent =  () =>{
     return (
 
       <div>
+               <br />
+        <span className="fs-3 primary>"> nombre de commande : {orders.length}</span>
+        <br />
       { orders.map( (productState:ProductState, index:number) => {            
         return <Order Item={productState} Key={index} />
       })}

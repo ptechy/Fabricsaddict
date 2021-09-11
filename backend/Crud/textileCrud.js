@@ -60,8 +60,20 @@ export const addDefault = (req, res) => {
 
  export const addFabrics = async (req, res) => {
   try {    
-      const categoryIdx = getCategoryByIndex(req.body.category).index
-      const doc = {...req.body, index: categoryIdx}
+
+      const str = JSON.stringify(req.body)
+      const data =JSON.parse(str)          
+
+      const doc =  {
+                    footage: data.footage,
+                    category: data.category,
+                    title: data.title,
+                    description: data.description,
+                    price:data.price,
+                    img: data.image
+                }
+
+       console.log(doc)
       const fabrics = new TextileModel(doc)
       await fabrics.save()
       res.status(200).json( getWrap(200, "add fabrics", fabrics))
@@ -83,7 +95,7 @@ export const addDefault = (req, res) => {
 
 export const getFabrics = async (req, res) => {
   try {
-    const fabrics = await TextileModel.find({}).limit(50)
+    const fabrics = await TextileModel.find({}).sort({date:-1}).limit(50)
     res.status(200).send( getWrap(200, "get fabrics", fabrics) )
   } catch (error) {
     res.status(404).send(error)
@@ -110,8 +122,6 @@ export const getFabric = async (req, res) => {
   }
 
 }
-
-
 
 export const deleteFabrics = async (req, res) => {
   try {

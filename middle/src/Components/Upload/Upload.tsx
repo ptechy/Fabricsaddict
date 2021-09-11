@@ -5,39 +5,17 @@ import * as Yup from 'yup';
 
 import { Redirect } from "react-router";
 import {  useHistory} from "react-router-dom";
+import axios from 'axios'
+import env from "react-dotenv"
 
-type Props = {
-    Idx : NumberConstructor,
-    Redirect: boolean
-   };
+
  
  
  const Upload: FunctionComponent =  () =>{
   
     // form validation rules 
     const validationSchema = Yup.object().shape({
-      firstName: Yup.string()
-          .required('le prénom est obligatoire')
-          .min(2, 'le prénom doit contenir au moins 2 caractères')
-          .max(20, 'le prénom contient au maximum 20 caractères'),
-      lastName: Yup.string()
-          .required('le nom est obligatoire')
-          .min(2, 'le nom doit contenir au moins 2 caractères')
-          .max(20, 'le nom contient au maximum 20 caractères'),
-      email: Yup.string()
-          .required('l\'email est obligatoire')
-          .email('l\'email est invalid'),
-      address: Yup.string()
-          .required('l\'adresse est obligatoire')
-          .min(2, 'l\'adresse doit contenir au moins 2 caractères')
-          .max(50, 'le nom contient au maximum 50 caractères'),    
-      zipCode: Yup.number()
-          .required('le code postal est obligatoire'),      
-      city: Yup.string()
-          .required('la ville est obligatoire')
-          .min(2, 'la ville doit contenir au moins 2 caractères')
-          .max(50, 'la ville contient au maximum 50 caractères')    
-    
+   
   });
 
     const history = useHistory();
@@ -46,11 +24,31 @@ type Props = {
     const isValid = true;
     const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
     
-    const onSubmit = (item: any) => {         
+    const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
+    const base_api         = `${root_url}/${env.API_BASE_URL}`
+    const order_url        = `${base_api}/fabrics`
 
-      history.push("/Upload")
+    const doUpload = async (items) => {
+      await  axios.post(order_url,items)
+          .then((res) => {
+            console.log(res.data)
+        }).catch((error) => {
+            console.log(error)
+        });
 
   }
+
+
+    const onSubmit = (item: any) => {   
+      console.log("upload:" + JSON.stringify(item))      
+      doUpload(item)
+      history.push("/")
+
+    }
+
+
+
+
 
 
     return (
@@ -67,7 +65,7 @@ type Props = {
                                      {...register('image')}                                    
                                     defaultValue="" 
                                   />
-                                   <p >{errors.firstName?.message}</p>
+                                   <p >{errors.image?.message}</p>
                                 </div>
 
                                 <div className="col">
@@ -79,7 +77,7 @@ type Props = {
                                     {...register('category')}
                                     defaultValue="" 
                                   />
-                                  <p>{errors.lastName?.message}</p>
+                                  <p>{errors.category?.message}</p>
                                 </div>
                               </div>
 
@@ -91,7 +89,7 @@ type Props = {
                                   className="form-control"
                                   {...register('title')}   
                                 />
-                                <p >{errors.email?.message}</p>
+                                <p >{errors.title?.message}</p>
                               </div>
      
                               <div className="form-group">
@@ -102,7 +100,7 @@ type Props = {
                                   {...register('description')}
                                   defaultValue=""                />
                               </div>
-                              <p >{errors.address?.message}</p>
+                              <p >{errors.description?.message}</p>
 
 
                               <div className="col">
@@ -113,7 +111,7 @@ type Props = {
                                    {...register('footage')}
                                     defaultValue=""  />
                                 </div>
-                                <p >{errors.zipCode?.message}</p>
+                                <p >{errors.footage?.message}</p>
                                 <div className="col">
                                 <p >Price</p>
                                   <input
@@ -122,7 +120,7 @@ type Props = {
                                     {...register('price')}
                                     defaultValue=""         
                                   />
-                                <p >{errors.city?.message}</p>
+                                <p >{errors.price?.message}</p>
                               </div>
                              
                               <input type="submit" />

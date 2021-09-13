@@ -63,10 +63,17 @@ const Card: FunctionComponent<Props> =  (props) =>{
         }).catch((error) => {
             console.log(error)
         });
+    }
 
-  }
-
-
+    const doDelete = async (items) => {
+        const targetDelete =  order_url + items._id
+        console.log("target: " +targetDelete)
+        await  axios.delete(targetDelete)
+            .then((res) => {
+          }).catch((error) => {
+              console.log(error)
+          });
+      }
 
     const ref = useRef<HTMLButtonElement>(null);
 
@@ -88,8 +95,11 @@ const Card: FunctionComponent<Props> =  (props) =>{
       const handleShow      = () => setShow(true);
 
       const handleDelete     = () => {
+
           setShow(false);
+          doDelete({_id: props.Tissu._id});
           window.location.reload();
+
       }
 
     const onSubmit = (item:Product) => {       
@@ -106,8 +116,6 @@ const Card: FunctionComponent<Props> =  (props) =>{
         const finalCategory = category === ''
         ?   props.Tissu.category 
         : category
-
-
 
         const finalTitle =  title === ''
         ?   props.Tissu.title 

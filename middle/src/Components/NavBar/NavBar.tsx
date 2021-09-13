@@ -33,7 +33,6 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
                 <Link to="/Orders" className="navbar-brand">Orders</Link>
                 <Link to="/Archives" className="navbar-brand">Archives</Link>
                 <Link to="/Upload" className="navbar-brand">Upload</Link>
-                <Link to="/Upload" className="navbar-brand">Update</Link>
                 <Link to="/Hidden" className="navbar-brand">Hidden</Link>
                 </nav>
             </div>

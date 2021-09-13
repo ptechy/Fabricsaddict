@@ -7,7 +7,15 @@ import Product from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
+
+import axios from 'axios'
+import env from "react-dotenv"
+
+
 import {ADD_TO_CART,  REMOVE_FROM_CART, SAVE_CART, RESET_CART } from "../../State/Actions/actionTypes"
+
+
+
 import {addToCart } from "../../State/Actions/ActionCreators"
 import {
     RovingTabIndexProvider,
@@ -32,50 +40,104 @@ const Card: FunctionComponent<Props> =  (props) =>{
             .max(20, 'le prénom contient au maximum 20 caractères'),
      
     });
-  
-  
-  
+    
  
       const history = useHistory();
-
-
-      
-
-
 
     let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
-    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + 'tissu.jpg'
+    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
     let priceDetail = props.Tissu.price + '€ ' +'/' + props.Tissu.footage
 
+    const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
+    const base_api         = `${root_url}/${env.API_BASE_URL}`
+    const order_url        = `${base_api}/fabrics/`
+
+    const doUpload = async (items) => {
+      const targetUrl =  order_url + items._id
+      console.log("target: " +targetUrl)
+      console.log("Update: " +items)
+      await  axios.put(targetUrl,items)
+          .then((res) => {
+        }).catch((error) => {
+            console.log(error)
+        });
+
+  }
 
 
-    // const [qty, setQty] = useState(1);
-    // const dispatch = useDispatch()
-  
-    // const add = (item, quantity) => {
-    //   dispatch(addtoCart(item, quantity))
-    // }
+
     const ref = useRef<HTMLButtonElement>(null);
 
     const [img, setImg] = useState('')
+    const [category, setCategory] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [footage, setFootage] = useState('')
     const [price, setPrice] = useState('')
 
-
       const [show, setShow] = useState(false);
-      const handleClose     = () => setShow(false);
+
+
+
+      const handleClose     = () => {
+          setShow(false);
+          window.location.reload();
+      }
       const handleShow      = () => setShow(true);
 
-      const addToBag = () =>{
-    }
+      const handleDelete     = () => {
+          setShow(false);
+          window.location.reload();
+      }
 
-    const onSubmit = (item:Product) => {         
-        console.log("rrrr" + description)
-       // history.push("/ConfirmDelivery")
+    const onSubmit = (item:Product) => {       
+        
+
+        console.log("footage: " +footage + "===" + '')
+        const finalFootage = footage === ''
+        ?   props.Tissu.footage 
+        : footage      
+        console.log("footage: " + finalFootage)
+
+
+        console.log("category: " +category + " === " +'' )
+        const finalCategory = category === ''
+        ?   props.Tissu.category 
+        : category
+
+
+
+        const finalTitle =  title === ''
+        ?   props.Tissu.title 
+        : title
+
+        const finalDescription =  description === ''
+        ?   props.Tissu.description 
+        : description
+
+        const finalPrice =  price === ''
+        ?   props.Tissu.price 
+        : price
+
+        const finalImg = img === ''
+        ?   props.Tissu.img 
+        :  img
+
+        const doc =  {
+            _id: props.Tissu._id,
+            footage: finalFootage,
+            category: finalCategory,
+            title: finalTitle,
+            description: finalDescription,
+            price:finalPrice,
+            repo: finalCategory,
+            img: finalImg
+        }
+        console.log("update:" + JSON.stringify(doc))      
+        doUpload(doc)
+        history.push("/main")
   
     }
 
@@ -91,7 +153,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
                     <div>
                         <span className="text-start px-1 fs-6">{priceDetail}</span>
                         <Button variant="primary" onClick={handleShow}>
-                            Détail
+                            Update
                         </Button>
                     </div>                    
                 </div>                  
@@ -123,6 +185,21 @@ const Card: FunctionComponent<Props> =  (props) =>{
                                                     onChange={event => setImg(event.target.value)}
                                                 />
                                         </label>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                        <label>
+                                                Category:
+                                                <input
+                                                    size={100}
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Category"                                  
+                                                    defaultValue={props.Tissu.category} 
+                                                    onChange={event => setCategory(event.target.value)}
+                                                />
+                                        </label>
+                                        </div>
                                     </div>
                                     <div className="row">
                                         <div className="col">
@@ -160,7 +237,8 @@ const Card: FunctionComponent<Props> =  (props) =>{
                                                     className="form-control"
                                                     placeholder="footage"                                  
                                                     defaultValue={props.Tissu.footage} 
-                                                    onChange={event => setFootage(event.target.value)} />
+                                                    onChange={event => setFootage(event.target.value)}                                                  
+                                                    />
                                         </label>
                                         </div>
                                     </div>
@@ -187,12 +265,24 @@ const Card: FunctionComponent<Props> =  (props) =>{
                     </div> 
 
                 <Modal.Footer>
+                <Button variant="danger" onClick={handleDelete}>
+                    Delete
+                    </Button>
                     <Button variant="secondary" onClick={handleClose}>
-                    Fermer
+                    Close
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                    Close
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                    Close
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                    Close
                     </Button>
 
                     <Button variant="primary" onClick={()=>{onSubmit(props.Tissu)}}>
-                    Ajouter au panier
+                    Update
                     </Button>
 
                 </Modal.Footer>

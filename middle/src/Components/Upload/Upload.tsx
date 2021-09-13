@@ -42,7 +42,7 @@ import env from "react-dotenv"
     const onSubmit = (item: any) => {   
       console.log("upload:" + JSON.stringify(item))      
       doUpload(item)
-      history.push("/")
+      history.push("/main")
 
     }
 

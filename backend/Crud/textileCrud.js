@@ -41,7 +41,7 @@ const record =  (data) =>{
                             quantity:qty,
                             footage: foot,
                             img: "azerty",
-                            repo: element.repo }
+                            repo: element.category }
             const fab = new TextileModel(doc)
             fab.save()
       });  
@@ -123,24 +123,30 @@ export const getFabric = async (req, res) => {
 
 }
 
-export const deleteFabrics = async (req, res) => {
+export const deleteFabric = async (req, res) => {
   try {
+    console.log("delete id: " + req.params.id)
     const fabrics = await TextileModel.findByIdAndDelete(req.params.id)
     if (!fabrics) 
       res.status(404).send('no element found')
 
     res.status(200).send(getWrap(200, "elements deleted", {}))  
   } catch (error) {
+    console.log(error)
     res.status(404).send(error)
   }
 }
 
 export const updateFabrics = async (req, res) => {
   try {
+
+    console.log("id: " + req.params.id)
+    console.log("body: " + JSON.stringify(req.body))
       const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, req.body)
       await fabrics.save()
       res.send(getWrap(200, "update fabric", fabrics))
   } catch (error) {
+    console.log(error)
     res.status(404).send(error)
   }
 

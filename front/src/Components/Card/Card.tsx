@@ -22,7 +22,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
     let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
-    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + 'tissu.jpg'
+    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
     let priceDetail = props.Tissu.price + '€ ' +'/' + props.Tissu.footage
   
     const dispatch = useDispatch()

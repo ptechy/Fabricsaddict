@@ -42,7 +42,6 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
           
                   <p className="lead">
                     <strong>Confirm</strong>
-                    <br /> <span>{order_url} zzzz</span> <br />
                     <Link className="btn btn-primary btn-sm" to="/Delivery" onClick={()=> commitOrder()} >
                       Confirm delivery
                     </Link>

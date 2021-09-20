@@ -1,6 +1,6 @@
 import express from 'express'
 
-import {addDefault, getTitles, getFabricsByCategory,  getFabrics, getFabric, addFabrics, updateFabrics, deleteFabric } from '../Crud/textileCrud'
+import {addDefault, getTitles, getFabricsByCategory,  getFabrics,getHiddenProducts, activateProduct, getFabric, addFabrics, updateFabrics, deleteFabric } from '../Crud/textileCrud'
 
 
 import {addOrder, getOrders } from '../Crud/orderCrud'
@@ -14,9 +14,10 @@ router.get('/api/v1/addDefault', addDefault )
 router.get('/api/v1/titles', getTitles )
 router.get('/api/v1/categories/:name', getFabricsByCategory)
 router.get('/api/v1/fabrics', getFabrics )
-
+router.get('/api/v1/hidden', getHiddenProducts )
 router.post('/api/v1/fabrics', addFabrics)
 router.put('/api/v1/fabrics/:id', updateFabrics)
+router.put('/api/v1/fabrics/Activate/:id', activateProduct)
 router.delete('/api/v1/fabrics/:id', deleteFabric)
 // route for orders
 router.get('/api/v1/orders', getOrders )

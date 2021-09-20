@@ -8,6 +8,7 @@ import Card from './Components/Card/Card'
 import Category from './Models/Fabric/Category'
 import Orders from './Components/Orders/Orders'
 import Upload from './Components/Upload/Upload'
+import Hidden from './Components/Hidden/Hidden'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -88,7 +89,8 @@ const App:FunctionComponent = () => {
                                                      LoadCategory={loadCategory} /> } />
           <Route path="/Card" component={Card}/>
           <Route path="/Orders" component={Orders}/>    
-          <Route path="/Upload" component={Upload} />    
+          <Route path="/Upload" component={Upload} />   
+          <Route path="/Hidden" component={Hidden} />     
       </div>
       </Fragment>
     </Router>

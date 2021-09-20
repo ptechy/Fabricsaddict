@@ -37,7 +37,7 @@ const productSchema = new Schema({
   img: { type: String, required: true, trim: true, lowercase: true },
   repo: { type: String, required: true, trim: true },
   date: { type: Date, required: false, default: Date.now },
-  hidden: { type: Boolean, required: false, default: false }
+  up: { type: Boolean, required: false, default: false }
 })
 
 

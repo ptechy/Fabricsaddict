@@ -15,7 +15,7 @@ const textileSchema = new Schema({
   img: { type: String, required: false, trim: true, lowercase: true },
   repo: { type: String, required: false, trim: true },
   date: { type: Date, required: false, default: Date.now },
-  hidden: { type: Boolean, required: false, default: false }
+  up: { type: Boolean, required: false, default: false }
 })
 
 const TextileModel = mongoose.model('textile', textileSchema)

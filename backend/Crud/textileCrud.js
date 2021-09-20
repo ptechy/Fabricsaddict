@@ -1,16 +1,16 @@
 import TextileModel from '../Models/textile'
 var randomSentence = require('random-sentence');
  
-const categoryEnum =    [{"category":'Lin', "repo":'lin' }, 
-                         {"category":'Crèpe', "repo":'crepe'},
-                         {"category":'Voile', "repo":'voile'},
-                         {"category":'Satin', "repo":'satin'}, 
-                         {"category":'Soie', "repo":'soie'}, 
-                         {"category":'Dentelle', "repo":'dentelle'}, 
-                         {"category":'Jacquard', "repo":'jacquard'}, 
-                         {"category":'Lainage', "repo":'lainage'}, 
-                         {"category":'Simili Cuir', "repo":'similiCuir'}, 
-                         {"category":'Velours', "repo":'velours'}]
+const categoryEnum =    [{"category":'Coton', "repo":'Coton' }, 
+                         {"category":'Coupons de Créateur', "repo":'CouponsDeCreateur'},
+                         {"category":'Lin', "repo":'Lin'},
+                         {"category":'Taffetas et Soies', "repo":'TaffetasEtSoies'}, 
+                         {"category":'Simili cuir', "repo":'SimiliCuir'}, 
+                         {"category":'Tissus en lot', "repo":'TissusEnLot'}, 
+                         {"category":'Mercerie', "repo":'Mercerie'}, 
+                         {"category":'Lainage', "repo":'Lainage'}, 
+                         {"category":'Velours', "repo":'Velours'}, 
+                         {"category":'Dentelle', "repo":'Dentelle'}]
 
 const getWrap = ( status,  msg, json ) =>{
  return ({  status: status,
@@ -70,6 +70,7 @@ export const addDefault = (req, res) => {
                     title: data.title,
                     description: data.description,
                     price:data.price,
+                    repo: data.repo,
                     img: data.image
                 }
 
@@ -97,6 +98,15 @@ export const getFabrics = async (req, res) => {
   try {
     const fabrics = await TextileModel.find({}).sort({date:-1}).limit(50)
     res.status(200).send( getWrap(200, "get fabrics", fabrics) )
+  } catch (error) {
+    res.status(404).send(error)
+  }
+}
+
+export const getHiddenProducts = async (req, res) => {
+  try {
+    const fabrics = await TextileModel.find({up:false}).limit(50)
+    res.status(200).send( getWrap(200, "get hidden fabrics", fabrics) )
   } catch (error) {
     res.status(404).send(error)
   }
@@ -149,5 +159,22 @@ export const updateFabrics = async (req, res) => {
     console.log(error)
     res.status(404).send(error)
   }
-
 }
+
+
+  export const activateProduct = async (req, res) => {
+    try {
+  
+      console.log("activation: " + req.params.id)
+      console.log("body: " + JSON.stringify(req.body))
+        const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, {up: true})
+        await fabrics.save()
+        res.send(getWrap(200, "activate fabric", fabrics))
+    } catch (error) {
+      console.log(error)
+      res.status(404).send(error)
+    }
+  }
+
+
+

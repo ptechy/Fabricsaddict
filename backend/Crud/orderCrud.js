@@ -35,7 +35,7 @@ export const addOrder = async (req, res) => {
                     price:data.price,
                     quantity: data.quantity,
                     img: data.img,
-                    repo: data.repo
+                    repo: data.category
               }
           })
       

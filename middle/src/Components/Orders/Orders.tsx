@@ -12,7 +12,7 @@ const Orders: FunctionComponent =  () =>{
 
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
-  const order_url        = `${base_api}/orders`
+  const order_url        = `${base_api}/orders/active`
 
 
   const [orders, setOrders]   = useState<ProductState[]>([])

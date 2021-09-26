@@ -1,10 +1,16 @@
 import React, { FunctionComponent, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+import {  useHistory} from "react-router-dom";
+
+
 import ProductState from '../../Models/Products/ProductState'
 import Product from '../../Models/Products/Product'
 import Customer from '../../Models/Customer/Customer'
+
+import axios from 'axios'
 import env from "react-dotenv"
+
 
 type Props = {
     Item: ProductState,
@@ -15,11 +21,29 @@ type Props = {
 
 const Order: FunctionComponent<Props> =  (props) =>{
 
+
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
-  const order_url        = `${base_api}/orders`
+  const hidden_url       = `${base_api}/order/hide/`
+  const history          = useHistory();
 
 
+  
+    const hide = async (item:ProductState) =>{
+
+
+
+      const targetUrl        =  hidden_url + item._id
+
+      await  axios.put(targetUrl)
+          .then((res) => {
+        }).catch((error) => {
+            console.log(error)
+        });
+
+
+      history.push("/Main")
+    }
     const getCustomer = (customer) =>{
       const items = Object.entries(customer).map(([key, value],  index: number) => {
                         <tr>
@@ -30,6 +54,8 @@ const Order: FunctionComponent<Props> =  (props) =>{
 
         return items
     }
+
+
 
     const GetCustomers = (props:ProductState) =>{
 
@@ -93,7 +119,17 @@ const Order: FunctionComponent<Props> =  (props) =>{
                             </tr>)
                     })
                 }
-               
+                  
+                <tr>
+                    <td>   
+                          <button type="button" 
+                                              className="btn btn-warning "
+                                              onClick = {() => hide(props.Item)}
+                                               >  
+                                          Cacher
+                          </button>                 
+                    </td>
+                </tr>
               </tbody>
             </table>           
           </div>)

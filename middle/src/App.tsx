@@ -9,6 +9,7 @@ import Category from './Models/Fabric/Category'
 import Orders from './Components/Orders/Orders'
 import Upload from './Components/Upload/Upload'
 import Hidden from './Components/Hidden/Hidden'
+import Archive from './Components/Archive/Archive'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -17,7 +18,7 @@ const App:FunctionComponent = () => {
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
   const title_url        = `${base_api}/titles`
-  const fabrics_url      = `${base_api}/fabrics`
+  const fabrics_url      = `${base_api}/fabrics/active`
   const categories_url   = `${base_api}/categories`
 
   const [titles, setTitles]                     = useState<Category[]>([])
@@ -90,7 +91,8 @@ const App:FunctionComponent = () => {
           <Route path="/Card" component={Card}/>
           <Route path="/Orders" component={Orders}/>    
           <Route path="/Upload" component={Upload} />   
-          <Route path="/Hidden" component={Hidden} />     
+          <Route path="/Hidden" component={Hidden} />  
+          <Route path="/Archive" component={Archive} />       
       </div>
       </Fragment>
     </Router>

@@ -12,16 +12,7 @@ import axios from 'axios'
 import env from "react-dotenv"
 
 
-import {ADD_TO_CART,  REMOVE_FROM_CART, SAVE_CART, RESET_CART } from "../../State/Actions/actionTypes"
-
-
-
-import {addToCart } from "../../State/Actions/ActionCreators"
-import {
-    RovingTabIndexProvider,
-    useRovingTabIndex,
-    useFocusEffect
-  } from "react-roving-tabindex";
+import CardModal from "./CardModal"
 
 
 type Props = {
@@ -86,68 +77,9 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
       const [show, setShow] = useState(false);
 
-
-
-      const handleClose     = () => {
-          setShow(false);
-          window.location.reload();
-      }
       const handleShow      = () => setShow(true);
 
-      const handleDelete     = () => {
 
-          setShow(false);
-          doDelete({_id: props.Tissu._id});
-          window.location.reload();
-
-      }
-
-    const onSubmit = (item:Product) => {       
-        
-
-        console.log("footage: " +footage + "===" + '')
-        const finalFootage = footage === ''
-        ?   props.Tissu.footage 
-        : footage      
-        console.log("footage: " + finalFootage)
-
-
-        console.log("category: " +category + " === " +'' )
-        const finalCategory = category === ''
-        ?   props.Tissu.category 
-        : category
-
-        const finalTitle =  title === ''
-        ?   props.Tissu.title 
-        : title
-
-        const finalDescription =  description === ''
-        ?   props.Tissu.description 
-        : description
-
-        const finalPrice =  price === ''
-        ?   props.Tissu.price 
-        : price
-
-        const finalImg = img === ''
-        ?   props.Tissu.img 
-        :  img
-
-        const doc =  {
-            _id: props.Tissu._id,
-            footage: finalFootage,
-            category: finalCategory,
-            title: finalTitle,
-            description: finalDescription,
-            price:finalPrice,
-            repo: finalCategory,
-            img: finalImg
-        }
-        console.log("update:" + JSON.stringify(doc))      
-        doUpload(doc)
-        history.push("/main")
-  
-    }
 
     return (
         <div className="col-lg-3">
@@ -167,136 +99,11 @@ const Card: FunctionComponent<Props> =  (props) =>{
                 </div>                  
             </div>
 
-
-
-
-
              {/* Modal  */}
-            <Modal show={show} onHide={handleClose}>
 
-                    <div className="modal-body">
+                <CardModal Tissu={props.Tissu} Idx={props.Idx} SetShow={setShow} Show={show} />
 
-                        <div className="container">
 
-                                <div className="col">
-                                    <div className="row">
-                                        <div className="col-sm-3"><img src={imgPath}className="img-thumbnail" alt="..."/>
-                                        </div>
-                                        <label>
-                                                Image:
-                                                <input
-                                                    size={100}
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="image"                                  
-                                                    defaultValue={props.Tissu.img} 
-                                                    onChange={event => setImg(event.target.value)}
-                                                />
-                                        </label>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col">
-                                        <label>
-                                                Category:
-                                                <input
-                                                    size={100}
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Category"                                  
-                                                    defaultValue={props.Tissu.category} 
-                                                    onChange={event => setCategory(event.target.value)}
-                                                />
-                                        </label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col">
-                                        <label>
-                                                Title:
-                                                <input
-                                                    size={100}
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="title"                                  
-                                                    defaultValue={props.Tissu.title} 
-                                                    onChange={event => setTitle(event.target.value)}
-                                                />
-                                        </label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col">
-                                        <label>
-                                                Description:
-                                                <textarea
-                                                style={{ height: 150, width:450 }}
-                                                    className="form-control"
-                                                    defaultValue={props.Tissu.description}
-                                                    placeholder="description" 
-                                                    onChange={event => setDescription(event.target.value)}  />
-                                            </label>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col">
-                                        <label>
-                                                Coupon/metre:
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="footage"                                  
-                                                    defaultValue={props.Tissu.footage} 
-                                                    onChange={event => setFootage(event.target.value)}                                                  
-                                                    />
-                                        </label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col">
-                                            <label>
-                                                    price:
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        placeholder="price"                              
-                                                        defaultValue={props.Tissu.price} 
-                                                        onChange={event => setPrice(event.target.value)}     />
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-
-                                    </div>                           
-                                </div>
-                            </div>
-                        </div>
-
-                    </div> 
-
-                <Modal.Footer>
-                <Button variant="danger" onClick={handleDelete}>
-                    Delete
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Close
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Close
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Close
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Close
-                    </Button>
-
-                    <Button variant="primary" onClick={()=>{onSubmit(props.Tissu)}}>
-                    Update
-                    </Button>
-
-                </Modal.Footer>
-               
-
-            </Modal>
 
 
       </div>

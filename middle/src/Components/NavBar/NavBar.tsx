@@ -31,7 +31,7 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
             <div className="col-sm-8">
                 <nav className="navbar navbar-light bg-white">
                 <Link to="/Orders" className="navbar-brand">Orders</Link>
-                <Link to="/Archives" className="navbar-brand">Archives</Link>
+                <Link to="/Archive" className="navbar-brand">Archives</Link>
                 <Link to="/Upload" className="navbar-brand">Upload</Link>
                 <Link to="/Hidden" className="navbar-brand">Hidden</Link>
                 </nav>

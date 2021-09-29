@@ -103,6 +103,15 @@ export const getFabrics = async (req, res) => {
   }
 }
 
+export const getActiveProducts = async (req, res) => {
+  try {
+    const fabrics = await TextileModel.find({up:true}).limit(50)
+    res.status(200).send( getWrap(200, "get active fabrics", fabrics) )
+  } catch (error) {
+    res.status(404).send(error)
+  }
+}
+
 export const getHiddenProducts = async (req, res) => {
   try {
     const fabrics = await TextileModel.find({up:false}).limit(50)
@@ -169,12 +178,24 @@ export const updateFabrics = async (req, res) => {
       console.log("body: " + JSON.stringify(req.body))
         const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, {up: true})
         await fabrics.save()
-        res.send(getWrap(200, "activate fabric", fabrics))
+        res.send(getWrap(200, "activate product", fabrics))
     } catch (error) {
       console.log(error)
       res.status(404).send(error)
     }
   }
 
-
+  export const hideProduct = async (req, res) => {
+    try {
+  
+      console.log("hide: " + req.params.id)
+      console.log("body: " + JSON.stringify(req.body))
+        const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, {up: false})
+        await fabrics.save()
+        res.send(getWrap(200, "hide prouct", fabrics))
+    } catch (error) {
+      console.log(error)
+      res.status(404).send(error)
+    }
+  }
 

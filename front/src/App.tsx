@@ -13,6 +13,7 @@ import Delivery from './Components/Delivery/Delivery'
 import ConfirmDelivery from './Components/Delivery/ConfirmDelivery'
 
 const App:FunctionComponent = () => {
+  
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
   const title_url        = `${base_api}/titles`

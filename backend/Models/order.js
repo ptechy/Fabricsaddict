@@ -34,16 +34,16 @@ const productSchema = new Schema({
   price: { type: String, required: true },
   quantity: { type: Number, required: true, minLength: 0, maxLength: 10000 },
   footage: { type: String, enum: footageEnum, required: false, trim: true, lowercase: true, default: 'm' },
-  img: { type: String, required: true, trim: true, lowercase: true },
-  repo: { type: String, required: true, trim: true },
-  date: { type: Date, required: false, default: Date.now },
-  up: { type: Boolean, required: false, default: false }
+  img: { type: String, required: false, trim: true, lowercase: true },
+  repo: { type: String, required: false, trim: true },
+  date: { type: Date, required: false, default: Date.now }
 })
 
 
 const orderSchema = new Schema({
   customers:[customerSchema],
-  products: [productSchema]
+  products: [productSchema],
+  hidden: { type: Boolean, required: false, default: false }
 })
 
 

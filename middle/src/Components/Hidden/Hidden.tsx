@@ -8,8 +8,17 @@ import axios from 'axios'
 import env from "react-dotenv"
 
 import CardModal from "../Card/CardModal"
+import Category from '../../Models/Fabric/Category'
 
-   const Hidden: FunctionComponent =  () =>{
+
+type Props = {
+    Categories: Category[]
+   };
+
+
+
+   const Hidden: FunctionComponent <Props> =  (props) =>{
+
 
     const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
     const base_api         = `${root_url}/${env.API_BASE_URL}`
@@ -70,7 +79,7 @@ import CardModal from "../Card/CardModal"
 
                             return(  
                             
-                                <tr>
+                                <tr  key={index}>
                                     <td>            
                                         <img
                                             width="70"
@@ -88,7 +97,7 @@ import CardModal from "../Card/CardModal"
                                             key={index}  >  
                                         Update
                                         </button>        
-                                        <CardModal Tissu={item} Idx={index} SetShow={setShow} Show={show} />        
+                                        <CardModal Tissu={item} Idx={index} SetShow={setShow} Show={show} Categories={props.Categories}  />        
                                     </td>
                                     <td> 
                                         <button type="button" 

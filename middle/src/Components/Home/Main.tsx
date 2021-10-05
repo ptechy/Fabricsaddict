@@ -19,7 +19,7 @@ const Main: FunctionComponent<Props> =  ({CustomProducts, Titles, LoadCategory})
                 <SideMenu Titles={Titles} LoadCategory={LoadCategory} />
             </div>             
             <div className="col-sm">
-                <House CustomProducts={CustomProducts} />
+                <House CustomProducts={CustomProducts} Categories= {Titles}  />
             </div> 
         </div>
     )

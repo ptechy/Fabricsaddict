@@ -90,8 +90,8 @@ const App:FunctionComponent = () => {
                                                      LoadCategory={loadCategory} /> } />
           <Route path="/Card" component={Card}/>
           <Route path="/Orders" component={Orders}/>    
-          <Route path="/Upload" component={Upload} />   
-          <Route path="/Hidden" component={Hidden} />  
+          <Route path="/Upload" component={() => <Upload Categories= {titles} />} />   
+          <Route path="/Hidden" component={() => <Hidden Categories= {titles} />} />  
           <Route path="/Archive" component={Archive} />       
       </div>
       </Fragment>

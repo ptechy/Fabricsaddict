@@ -7,7 +7,7 @@ import Product from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
-
+import Category from '../../Models/Fabric/Category'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -17,10 +17,13 @@ import CardModal from "./CardModal"
 
 type Props = {
     Tissu: Product,
+    Categories: Category[],
     Idx : number
    };
 
 const Card: FunctionComponent<Props> =  (props) =>{
+
+
 
 
     // form validation rules 
@@ -101,7 +104,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
              {/* Modal  */}
 
-                <CardModal Tissu={props.Tissu} Idx={props.Idx} SetShow={setShow} Show={show} />
+                <CardModal Tissu={props.Tissu} Idx={props.Idx} SetShow={setShow} Show={show} Categories= {props.Categories} />
 
 
 

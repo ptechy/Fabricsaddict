@@ -7,6 +7,8 @@ import Product from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
+import Category from '../../Models/Fabric/Category'
+
 
 import axios from 'axios'
 import env from "react-dotenv"
@@ -17,28 +19,40 @@ import env from "react-dotenv"
         Tissu: Product,
         Show: boolean,
         SetShow: (value:boolean)=>void,
-        Idx : number
+        Idx : number,
+        Categories: Category[]
    };
 
 const CardModal: FunctionComponent<Props> =  (props) =>{
 
+    const defaultVal =`${props.Tissu.repo}-${props.Tissu.category}`
 
     const history = useHistory();
-    let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
-    let modalIdx    =  props.Tissu.repo + props.Idx
-    let modalId     = '#' + modalIdx
-    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
-    let priceDetail = props.Tissu.price + '€ ' +'/' + props.Tissu.footage
+    const [img, setImg] = useState('')
+    const [repoCat, setRepoCat] = useState(defaultVal)
+    const [category, setCategory] = useState('')
+    const [repo, setRepo] = useState(props.Tissu.repo)
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [footage, setFootage] = useState(props.Tissu.footage)
+    const [price, setPrice] = useState('')
 
+    let imgPath             = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
     const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
     const base_api         = `${root_url}/${env.API_BASE_URL}`
     const order_url        = `${base_api}/fabrics/`
     const hide_url         = `${base_api}/product/hide/`
 
+
+    const handleRepo = (item:string) =>{
+        setRepoCat(item)
+        const data =  item.split('-')
+        setRepo(data[0])
+        setCategory(data[1])
+      }
+
     const doUpload = async (items) => {
       const targetUrl =  order_url + items._id
-      console.log("target: " +targetUrl)
-      console.log("Update: " +items)
       await  axios.put(targetUrl,items)
           .then((res) => {
         }).catch((error) => {
@@ -57,18 +71,6 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
       }
 
 
-
-
-
-
-    const ref = useRef<HTMLButtonElement>(null);
-
-    const [img, setImg] = useState('')
-    const [category, setCategory] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [footage, setFootage] = useState('')
-    const [price, setPrice] = useState('')
 
 
 
@@ -98,17 +100,13 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
 
     }
 
+
+
     const onSubmit = (item:Product) => {       
         
 
-        console.log("footage: " +footage + "===" + '')
-        const finalFootage = footage === ''
-        ?   props.Tissu.footage 
-        : footage      
-        console.log("footage: " + finalFootage)
+        const finalFootage = footage
 
-
-        console.log("category: " +category + " === " +'' )
         const finalCategory = category === ''
         ?   props.Tissu.category 
         : category
@@ -129,6 +127,8 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
         ?   props.Tissu.img 
         :  img
 
+        const finalRepo = repo
+
         const doc =  {
             _id: props.Tissu._id,
             footage: finalFootage,
@@ -136,7 +136,7 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
             title: finalTitle,
             description: finalDescription,
             price:finalPrice,
-            repo: finalCategory,
+            repo: finalRepo,
             img: finalImg
         }
         console.log("update:" + JSON.stringify(doc))      
@@ -152,9 +152,7 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
 
                 <Modal show={props.Show} onHide={handleClose}>  
                             <div className="modal-body">
-
                                 <div className="container">
-
                                         <div className="col">
                                             <div className="row">
                                                 <div className="col-sm-3"><img src={imgPath}className="img-thumbnail" alt="..."/>
@@ -171,19 +169,20 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
                                                         />
                                                 </label>
                                             </div>
+                                            <br></br>
                                             <div className="row">
+
                                                 <div className="col">
-                                                <label>
-                                                        Category:
-                                                        <input
-                                                            size={100}
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="Category"                                  
-                                                            defaultValue={props.Tissu.category} 
-                                                            onChange={event => setCategory(event.target.value)}
-                                                        />
-                                                </label>
+                                                    <label>
+                                                        Catégorie:
+                                                        <select className="bootstrap-select" value={repoCat} onChange={event => handleRepo(event.target.value)}  >
+                                                        { props.Categories.map((item:Category, index:number) =>{
+                                                                const val = `${item.repo}-${item.category}`
+                                                          return   <option value={val}  key={index} >{item.repo}</option>
+
+                                                        }) } 
+                                                        </select>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -217,13 +216,11 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
                                                 <div className="col">
                                                 <label>
                                                         Coupon/metre:
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="footage"                                  
-                                                            defaultValue={props.Tissu.footage} 
-                                                            onChange={event => setFootage(event.target.value)}                                                  
-                                                            />
+                                                        <select className="bootstrap-select" value={footage}  onChange={event => setFootage(event.target.value)} >
+                                                            <option value="m" >m</option>
+                                                            <option value="coupon">coupon</option>
+
+                                                        </select>
                                                 </label>
                                                 </div>
                                             </div>

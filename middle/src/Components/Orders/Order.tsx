@@ -47,7 +47,7 @@ const Order: FunctionComponent<Props> =  (props) =>{
     const getCustomer = (customer) =>{
       const items = Object.entries(customer).map(([key, value],  index: number) => {
                         <tr>
-                          <td>{key} customer</td>
+                          <td  key={key}>{key} customer</td>
                           <td>{value} key={index}</td>
                         </tr>  
                       })      

@@ -1,4 +1,4 @@
-import React, {  FunctionComponent } from "react";
+import React, {  FunctionComponent,useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -7,11 +7,14 @@ import { Redirect } from "react-router";
 import {  useHistory} from "react-router-dom";
 import axios from 'axios'
 import env from "react-dotenv"
+import Category from '../../Models/Fabric/Category'
 
+type Props = {
+  Categories: Category[]
+};
 
  
- 
- const Upload: FunctionComponent =  () =>{
+ const Upload: FunctionComponent<Props> =  (props) =>{
   
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -28,6 +31,18 @@ import env from "react-dotenv"
     const base_api         = `${root_url}/${env.API_BASE_URL}`
     const order_url        = `${base_api}/fabrics`
 
+
+    const [category, setCategory] = useState('Coton')
+    const [repo, setRepo] = useState('Coton')
+    const [footage, setFootage] = useState('m')
+  
+
+    const handleRepo = (item:string) =>{
+      const data =  item.split('-')
+      setRepo(data[0])
+      setCategory(data[1])
+    }
+
     const doUpload = async (items) => {
       await  axios.post(order_url,items)
           .then((res) => {
@@ -39,9 +54,11 @@ import env from "react-dotenv"
   }
 
 
-    const onSubmit = (item: any) => {   
-      console.log("upload:" + JSON.stringify(item))      
-      doUpload(item)
+    const onSubmit = (item: any) => {      
+     
+      const data =  {...item,...{ "category": category}, ...{ "repo": repo}, ...{"footage":footage} } 
+      console.log("data:" + JSON.stringify(item))      
+      doUpload(data)
       history.push("/main")
 
     }
@@ -70,14 +87,12 @@ import env from "react-dotenv"
 
                                 <div className="col">
                                 <p >Category</p>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                           
-                                    {...register('category')}
-                                    defaultValue="" 
-                                  />
-                                  <p>{errors.category?.message}</p>
+                                  <select className="bootstrap-select" value={repo} onChange={event => handleRepo(event.target.value)}  >
+                                      { props.Categories.map((item:Category, index:number) =>{
+                                        const val = `${item.repo}-${item.category}`
+                                        return   <option value={val}  key={index} >{item.repo}</option>
+                                      }) } 
+                                  </select>
                                 </div>
                               </div>
 
@@ -104,15 +119,15 @@ import env from "react-dotenv"
 
 
                               <div className="col">
-                                <p >Footage</p>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                   {...register('footage')}
-                                    defaultValue=""  />
-                                </div>
-                                <p >{errors.footage?.message}</p>
-                                <div className="col">
+                                <p >Footage</p>                                                    
+                                  <select className="bootstrap-select" value={footage}  onChange={event => setFootage(event.target.value)} >
+                                      <option value="m" >m</option>
+                                      <option value="coupon">coupon</option>
+                                  </select>
+
+                              </div>
+
+                              <div className="col">
                                 <p >Price</p>
                                   <input
                                     type="text"

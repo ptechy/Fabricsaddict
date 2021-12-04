@@ -6,5 +6,6 @@
     email: string,
     zipCode: number,
     address: number,
-    city: string
+    city: string,
+    date: string
   };

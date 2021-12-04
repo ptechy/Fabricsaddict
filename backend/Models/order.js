@@ -28,7 +28,8 @@ const customerSchema = new Schema({
   address: { type: String, required: true, trim: true, lowercase: true, validate: { validator: addressValidation, message: 'address is incorrect' } },
   city: { type: String, required: true, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'city is incorrect' } },
   country: { type: String, required: false, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'country is incorrect' }, default: 'France' },
-  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'zipCode is incorrect' } }
+  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'zipCode is incorrect' } },
+  date: { type: Date, required: false, default: Date.now }
 })
 
 const productSchema = new Schema({

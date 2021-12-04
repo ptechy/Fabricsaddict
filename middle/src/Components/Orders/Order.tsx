@@ -1,15 +1,17 @@
 import React, { FunctionComponent, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-
+import moment from 'moment';
 import {  useHistory} from "react-router-dom";
 
 
 import ProductState from '../../Models/Products/ProductState'
 import Product from '../../Models/Products/Product'
 import Customer from '../../Models/Customer/Customer'
-
 import axios from 'axios'
+
 import env from "react-dotenv"
+
+
 
 
 type Props = {
@@ -73,6 +75,7 @@ const Order: FunctionComponent<Props> =  (props) =>{
         })      
     }
 
+    const dt =  moment(props.Item.customers[0].date).format('DD-MM-YYYY HH:mm:ss');
 
     return (
 
@@ -83,7 +86,8 @@ const Order: FunctionComponent<Props> =  (props) =>{
             <table className="table table-bordered border-warning">
               <thead>
                 <tr>
-                  <th scope="col">Commande # {props.Item._id}</th>
+                  <th scope="col">Commande # {props.Item._id}                          | <span>Date: {dt} </span></th>
+                  
                 </tr>
               </thead>
               <tbody>

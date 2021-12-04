@@ -1,11 +1,14 @@
+import moment from 'moment';
 
+import axios from 'axios'
 import React, {FunctionComponent, Fragment, useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {  useHistory} from "react-router-dom";
 import ProductState from '../../Models/Products/ProductState'
 import Product from '../../Models/Products/Product';
-import axios from 'axios'
+
 import env from "react-dotenv"
+
 
 import CardModal from "../Card/CardModal"
 
@@ -57,6 +60,7 @@ import CardModal from "../Card/CardModal"
                 <thead>
                     <tr>
                         <th scope="col">N° de commande</th>
+                        <th scope="col">Date</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prenom</th>
                         <th scope="col">Total</th>
@@ -71,11 +75,13 @@ import CardModal from "../Card/CardModal"
                             return item.quantity * item.price
                             })
 
+                            const dt =  moment(item.customers[0].date).format('DD-MM-YYYY HH:mm:ss');
                             let total = values.reduce(reducer)
                             return(  
                             
                                 <tr>
                                     <td>{item._id} </td>
+                                    <td>{dt} </td>
                                     <td>{item.customers[0].firstName}</td>
                                     <td>{item.customers[0].lastName}</td>
                                     <td>{total}</td>

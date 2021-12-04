@@ -2,8 +2,6 @@ import React, {  FunctionComponent,useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
-import { Redirect } from "react-router";
 import {  useHistory} from "react-router-dom";
 import axios from 'axios'
 import env from "react-dotenv"
@@ -16,42 +14,39 @@ type Props = {
  
  const Upload: FunctionComponent<Props> =  (props) =>{
   
+     const defaultVal =`${ props.Categories[0]}-${ props.Categories[0]}`
+
     // form validation rules 
-    const validationSchema = Yup.object().shape({
-   
-  });
+    const validationSchema = Yup.object().shape({ })
 
-    const history = useHistory();
-    const formOptions = { resolver: yupResolver(validationSchema) };
-
-    const isValid = true;
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm(formOptions);   
+    const history          = useHistory();
+    const formOptions      = { resolver: yupResolver(validationSchema) }
+    const { register, handleSubmit, formState: { errors }} = useForm(formOptions)  
     
     const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
     const base_api         = `${root_url}/${env.API_BASE_URL}`
     const order_url        = `${base_api}/fabrics`
 
-
+    const [repoCat, setRepoCat] = useState(defaultVal)
     const [category, setCategory] = useState('Coton')
-    const [repo, setRepo] = useState('Coton')
-    const [footage, setFootage] = useState('m')
+    const [repo, setRepo]         = useState('Coton')
+    const [footage, setFootage]   = useState('m')
   
 
     const handleRepo = (item:string) =>{
       const data =  item.split('-')
+      console.log("data:" + JSON.stringify(data))      
       setRepo(data[0])
       setCategory(data[1])
+      setRepoCat(item)
     }
 
     const doUpload = async (items) => {
       await  axios.post(order_url,items)
-          .then((res) => {
-            console.log(res.data)
-        }).catch((error) => {
-            console.log(error)
-        });
+                  .then((res) => { console.log(res.data)})
+                  .catch((error) => { console.log(error)  });
 
-  }
+    }
 
 
     const onSubmit = (item: any) => {      
@@ -87,12 +82,13 @@ type Props = {
 
                                 <div className="col">
                                 <p >Category</p>
-                                  <select className="bootstrap-select" value={repo} onChange={event => handleRepo(event.target.value)}  >
+                                  <select className="bootstrap-select" value={repoCat} onChange={event => handleRepo(event.target.value)}  >
                                       { props.Categories.map((item:Category, index:number) =>{
                                         const val = `${item.repo}-${item.category}`
                                         return   <option value={val}  key={index} >{item.repo}</option>
                                       }) } 
                                   </select>
+                                  
                                 </div>
                               </div>
 
@@ -136,10 +132,8 @@ type Props = {
                                     defaultValue=""         
                                   />
                                 <p >{errors.price?.message}</p>
-                              </div>
-                             
+                              </div>                             
                               <input type="submit" />
-
                   </form>
                         
                 </div> 

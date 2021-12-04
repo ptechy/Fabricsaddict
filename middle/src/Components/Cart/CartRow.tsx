@@ -80,7 +80,7 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             </button>
             </div>
         </td>
-        <td>{(props.Item.quantity *  props.Item.price).toFixed(2)}€ </td>
+        <td>{(props.Item.quantity *  props.Item.price).toFixed(2)} € </td>
         <td>
             <button
             type="button"

@@ -4,6 +4,10 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import env from "react-dotenv"
+import { bindActionCreators } from "redux";
+import {resetCart} from '../../State/Actions/ActionCreators'
+
+
 
 type Props = { };
 
@@ -11,6 +15,9 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
 
   // const userProfile = useContext(UserProfileContext)
   // const items = useSelector(state => state.items)
+  const dispatch = useDispatch()
+
+
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
   const order_url        = `${base_api}/order`
@@ -30,20 +37,25 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
             console.log(error)
         });
 
+        
+        reset()
   }
+
+  const reset = () => {
+    dispatch(resetCart())
+ }
 
 
     return (
         <>
 
                 <div className="jumbotron text-center">
-                  <h1 className="display-3">Thank You!</h1>
+                  <h3 className="display-6">VOULEZ-VOUS CONFIRMER VOTRE COMMANDE ?</h3>
                   <hr />
           
                   <p className="lead">
-                    <strong>Confirm</strong>
-                    <Link className="btn btn-primary btn-sm" to="/Delivery" onClick={()=> commitOrder()} >
-                      Confirm delivery
+                     <Link className="btn btn-outline-warning btn-lg" to="/Delivery" onClick={()=> commitOrder()} >
+                      Confirmer
                     </Link>
                   </p>
                   <br />

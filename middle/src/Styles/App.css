@@ -170,13 +170,13 @@ footer {
 	color: rgb(152, 151, 151);
 }
 .crimson {
-	color: crimson !important;
+	color:#D67274 !important;
 }
 .bg-crimson {
-	background-color: crimson !important;
+	background-color:#D67274 !important;
 }
 .red {
-	border: 1px solid crimson;
+	border: 1px solid #D67274;
 }
 @media screen and (max-width: 640px) {
 	body {

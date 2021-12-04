@@ -73,10 +73,10 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
                   <hr />
           
                   <p className="lead">
-                    <strong>Your order is on its way to your homeS</strong>
+                    <strong>Merci pour votre commande</strong>
                     <br /> <br />
-                    <Link className="btn btn-primary btn-sm" to="/" onClick={() => reset()}>
-                      Continue to homepage
+                    <Link className="btn btn-warning btn-lg" to="/" >
+                      Retour à la page d'accueil
                     </Link>
                   </p>
                   <br />

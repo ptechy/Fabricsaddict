@@ -18,13 +18,14 @@ type Props = {
 const CartTable: FunctionComponent<Props> =  (props) =>{
 
     return (
-      <table>
+      <table  className="table">
         <tbody>
         <tr>
-          <th className="cartTable">Product</th>
-          <th className="cartTable">Reference</th>
-          <th className="cartTable">Price</th>
-          <th className="cartTable">Quantity</th>
+          <th className="cartTable">Produit</th>
+          <th className="cartTable">Référence</th>
+          <th className="cartTable">Prix</th>
+          <th className="cartTable">Quantité</th>
+          <th className="cartTable"></th>
           <th className="cartTable">Total</th>
         </tr>
         {props.Items.map((item : Product, index: number) => {

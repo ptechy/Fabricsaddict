@@ -1,20 +1,19 @@
 import OrderModel from '../Models/order'
 var randomSentence = require('random-sentence');
  
-const getWrap = ( status,  msg, json ) =>{
-  return ({  status: status,
-              results: json.length,
-              message: msg,
-              data: json})
+const getWrap = ( status, msg, json ) =>{
+  return ({  
+    status: status,
+    results: json.length,
+    message: msg,
+    data: json})
 } 
-
-
 
 export const addOrder = async (req, res) => {
   
       try {  
-        const str = JSON.stringify(req.body)
-        const json =JSON.parse(str)         
+        const str  = JSON.stringify(req.body)
+        const json = JSON.parse(str)         
       
           const reqCustomer = json.customers[0]
           const customer = {
@@ -53,7 +52,6 @@ export const addOrder = async (req, res) => {
       }
 }
 
-
 export const getOrders = async (req, res) => {
     try {
       const orders = await OrderModel.find({}).limit(50)
@@ -81,7 +79,6 @@ export const getHiddenOrders = async (req, res) => {
   }
 }
 
-
 export const hideOrder = async (req, res) => {
   try {
 
@@ -98,7 +95,6 @@ export const hideOrder = async (req, res) => {
 
 export const activateOrder = async (req, res) => {
   try {
-
     console.log("activation: " + req.params.id)
     console.log("body: " + JSON.stringify(req.body))
       const orders = await OrderModel.findByIdAndUpdate(req.params.id, {hidden: false})

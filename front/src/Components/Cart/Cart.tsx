@@ -60,6 +60,7 @@ const Cart: FunctionComponent<Props> =  (props) =>{
                   </ul>
                 </li>
               </ul>
+              
               <button type="button" className="btn btn-light btn-lg btn-block checkout bg-crimson" disabled={checkOutView} >
               <Link to="/Checkout" className="white"> Checkout </Link>
               </button>

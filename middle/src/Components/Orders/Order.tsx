@@ -56,6 +56,13 @@ const Order: FunctionComponent<Props> =  (props) =>{
     }
 
 
+    const reducer = (previousValue, currentValue) => previousValue + currentValue;
+    let values = props.Item.products.map((item:Product) => {
+      return item.quantity * item.price
+    })
+
+    let total = values.reduce(reducer)
+
 
     const GetCustomers = (props:ProductState) =>{
 
@@ -68,67 +75,85 @@ const Order: FunctionComponent<Props> =  (props) =>{
 
 
     return (
+
+
+      
      
           <div className="row">
-            <table className="table">
+            <table className="table table-bordered border-warning">
               <thead>
                 <tr>
                   <th scope="col">Commande # {props.Item._id}</th>
                 </tr>
               </thead>
               <tbody>
-              <tr><td>    </td></tr>
                 <tr>
 
-                  <td>
-                        <table className="table table-secondary table-bordered ">
-                            <tbody>
-                                { props.Item.customers.map( (customer:Customer, index:number) => {  
-                                    return  Object.entries(customer).map(([key, value],  index: number) => {          
-                                                return( 
-                                                        <tr key={index}>
-                                                        <td> {key}</td>
-                                                        <td>{value}</td>
-                                                        </tr> 
-                                                )})
-                                })}
-                          </tbody>
-                        </table>
+                    <td>
+                          <table className="table table-secondary table-bordered ">
+                              <tbody>
+                                  { props.Item.customers.map( (customer:Customer, index:number) => {  
+                                      return  Object.entries(customer).map(([key, value],  index: number) => {  
+                                                        
+                                                  return( 
+                                                          <tr key={index}>
+                                                          <td> {key}</td>
+                                                          <td>{value}</td>
+                                                          </tr> 
+                                                  )})
+                                  })}
+                            </tbody>
+                          </table>
 
-                  </td>
-                </tr>
-                { props.Item.products.map( (product:Product, index:number) => {                
-
-                    return( <tr><td  key={index}>  
-                                    <table className="table table-success table-bordered border-dark">
-                                        <tbody>
-                                            { 
-                                                Object.entries(product).map(([key, value],  index: number) => {          
-                                                            return( 
-                                                                    <tr key={index}>
-                                                                    <td> {key}</td>
-                                                                    <td>{value}</td>
-                                                                    </tr> 
-                                                            )
-                                                })
-                                            
-                                            }
-                                    </tbody>
-                                    </table>
-                                </td>
-                            </tr>)
-                    })
-                }
-                  
-                <tr>
-                    <td>   
-                          <button type="button" 
-                                              className="btn btn-warning "
-                                              onClick = {() => hide(props.Item)}
-                                               >  
-                                          Cacher
-                          </button>                 
                     </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                      <table className="table table-success table-bordered border-dark">
+                          <tbody>
+                              <tr>
+
+                                  <th>catégorie</th>
+                                  <th>Titre</th>
+                                  <th>Description</th>
+                                  <th>Footage</th>
+                                  <th>Quantité</th>
+                                  <th>Prix</th>
+
+                              </tr>
+                                  { props.Item.products.map( (product:Product, index:number) => {                
+
+                                          return( <tr>
+                                              <td key={index} >{product["category"]}</td>
+                                              <td>{product["title"]}</td>
+                                              <td>{product["description"]}</td>
+                                              <td>{product["footage"]}</td>
+                                              <td>{product["quantity"]}</td>
+                                              <td>{product["price"]} €</td>        
+                                            </tr>)                
+                                    }) }
+                          </tbody>
+                      </table>                
+                  </td>               
+                </tr>                    
+                <tr>
+                  <table className="table table-secondary">
+                      <tbody>
+                          <tr>
+
+
+                                          <td>Total</td>
+                                          <td>{total}</td>
+                                          <td>  <button type="button"  className="btn btn-warning"  onClick = {() => hide(props.Item)}  >  
+                                        Cacher
+                        </button>  </td>
+
+                        </tr>                
+
+                      </tbody>
+                  </table>  
+                  
                 </tr>
               </tbody>
             </table>           

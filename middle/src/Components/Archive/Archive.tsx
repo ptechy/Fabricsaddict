@@ -3,7 +3,7 @@ import React, {FunctionComponent, Fragment, useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {  useHistory} from "react-router-dom";
 import ProductState from '../../Models/Products/ProductState'
-
+import Product from '../../Models/Products/Product';
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -56,41 +56,37 @@ import CardModal from "../Card/CardModal"
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">N° de commande</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Total</th>
                         <th scope="col">Update</th>
                         <th scope="col">Activatation</th>
                     </tr>
                 </thead>
                  <tbody>
                         { orders.map((item:ProductState, index:number) =>{
+                            const reducer = (previousValue, currentValue) => previousValue + currentValue;
+                            let values = item.products.map((item:Product) => {
+                            return item.quantity * item.price
+                            })
 
-
+                            let total = values.reduce(reducer)
                             return(  
                             
                                 <tr>
-                                    <td>  bla bla          
-                                    </td>
-                                    <td>{item._id}</td>
-                                    <td>blabla</td>
+                                    <td>{item._id} </td>
+                                    <td>{item.customers[0].firstName}</td>
+                                    <td>{item.customers[0].lastName}</td>
+                                    <td>{total}</td>
+                                    <td>update</td>
                                     <td> 
-                                        re bla bla
-                                              
-                                    </td>
-                                    <td> 
-                                        <button type="button" 
-                                            className="list-group-item list-group-item-action"
-                                            onClick = {() => activate(item)}
+                                        <button type="button"   className="list-group-item list-group-item-action"        onClick = {() => activate(item)}
                                             key={index}  >  
                                         Activer
                                     </button>                
                                     </td>
-                                </tr>
-                                
-                            
-                        
-                                )
+                                </tr>   )
                         }) } 
 
                 </tbody>

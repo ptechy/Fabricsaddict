@@ -34,7 +34,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "dev": "concurrently  \"npm run back\" \"npm run front\" ",
+    "dev": "concurrently  cd ../backend && npm start && cd front && npm start",
     "start": "(set PORT=3006 || export PORT=3006) && react-dotenv && react-scripts start",
     "front": "npm start",
     "back": "cd ../backend && npm start",

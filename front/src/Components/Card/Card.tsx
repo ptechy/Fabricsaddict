@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
 import {ADD_TO_CART,  REMOVE_FROM_CART, SAVE_CART, RESET_CART } from "../../State/Actions/actionTypes"
 import {addToCart } from "../../State/Actions/ActionCreators"
+import './Card.css';
+
 import {
     RovingTabIndexProvider,
     useRovingTabIndex,
@@ -50,6 +52,18 @@ const Card: FunctionComponent<Props> =  (props) =>{
       const handleClose     = () => setShow(false);
       const handleShow      = () => setShow(true);
 
+        const addQty = () =>{
+            let current = qty
+            if(current < 5)
+             setQty(qty+1)
+        }
+
+        const removeQty = () =>{
+            let current = qty
+            if(current >1)
+             setQty(qty-1)
+        }
+
     return (
         <div className="col-lg-3">
             <div className="card" style={imgStyle}  >
@@ -61,7 +75,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
                     <p className="card-text fs-6">{props.Tissu.description}</p>
                     <div>
                         <span className="text-start px-1 fs-6">{priceDetail}</span>
-                        <Button variant="primary" onClick={handleShow}>
+                        <Button  className="btn btn-outline-success"  onClick={handleShow}>
                             Détail
                         </Button>
                     </div>                    
@@ -69,10 +83,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
             </div>
              {/* Modal  */}
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>                    
-                    <Modal.Title>{props.Tissu.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                 <Modal.Body><h4><strong>{props.Tissu.title}</strong></h4></Modal.Body>
                     <div className="modal-body">
                         <div className="container">
                             <div className="row">
@@ -95,9 +106,9 @@ const Card: FunctionComponent<Props> =  (props) =>{
                                     <div className="row">
                                         <div className="col">
                                             <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                                <button type="button"  onClick={() => setQty(qty>1 ? - 1 : 1)} className="btn btn-outline-primary">-</button>
-                                                <button type="button" className="btn btn-outline-primary">{qty}</button>
-                                                <button type="button"  onClick={() => setQty(qty + 1)} className="btn btn-outline-primary">+</button>
+                                                <button type="button"  onClick={() => removeQty()} className="btn btn-outline-secondary">-</button>
+                                                <button type="button" className="btn btn-outline-secondary">{qty}</button>
+                                                <button type="button"  onClick={() => addQty()} className="btn btn-outline-secondary">+</button>
                                             </div>
                                         </div>
                                     </div>                           
@@ -109,7 +120,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
                     <Button variant="secondary" onClick={handleClose}>
                     Fermer
                     </Button>
-                    <Button variant="primary" onClick={()=>{addToBag(props.Tissu, qty)}}>
+                    <Button className="btn btn-outline-success"  onClick={()=>{addToBag(props.Tissu, qty)}}>
                     Ajouter au panier
                     </Button>
                 </Modal.Footer>

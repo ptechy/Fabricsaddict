@@ -10,7 +10,8 @@ const categoryEnum =    [{"category":'Coton', "repo":'Coton' },
                          {"category":'Mercerie', "repo":'Mercerie'}, 
                          {"category":'Lainage', "repo":'Lainage'}, 
                          {"category":'Velours', "repo":'Velours'}, 
-                         {"category":'Dentelle', "repo":'Dentelle'}]
+                         {"category":'Dentelle', "repo":'Dentelle'},
+                         {"category":'Wax', "repo":'Wax'}]
 
 const getWrap = ( status,  msg, json ) =>{
  return ({  status: status,
@@ -19,32 +20,33 @@ const getWrap = ( status,  msg, json ) =>{
             data: json})
 } 
 
-const getDecimal = ()=>{
-  return  ((Math.random() * 8 + 1 + Math.random())*7).toFixed(2) 
-}
+// const getDecimal = ()=>{
+//   return  ((Math.random() * 8 + 1 + Math.random())*7).toFixed(2) 
+// }
 
+
+
+// const record =  (data) =>{
+//       data.map((element, idx) => {
+//             const foot = (idx % 2) ? "m" : "coupon"
+//             const pr = getDecimal().toString()
+//             const qty =  (idx % 2) ? idx:  idx*3
+//             const doc = {   category: element.category,
+//                             title: randomSentence({words: 5}),
+//                             description: randomSentence({words: 20}),
+//                             price: pr,
+//                             quantity:qty,
+//                             footage: foot,
+//                             img: "azerty",
+//                             repo: element.category }
+//             const fab = new TextileModel(doc)
+//             fab.save()
+//       });  
+// }
 
 const getCategoryByIndex = (value) => {
   return  categoryEnum.Map((item, idx) => ({"index": idx,"category": item}))
                       .filter(z=>  value.toLowerCase() !== item.toLowerCase())
-}
-
-const record =  (data) =>{
-      data.map((element, idx) => {
-            const foot = (idx % 2) ? "m" : "coupon"
-            const pr = getDecimal().toString()
-            const qty =  (idx % 2) ? idx:  idx*3
-            const doc = {   category: element.category,
-                            title: randomSentence({words: 5}),
-                            description: randomSentence({words: 20}),
-                            price: pr,
-                            quantity:qty,
-                            footage: foot,
-                            img: "azerty",
-                            repo: element.category }
-            const fab = new TextileModel(doc)
-            fab.save()
-      });  
 }
 
 export const addDefault = (req, res) => {
@@ -61,20 +63,19 @@ export const addDefault = (req, res) => {
  export const addFabrics = async (req, res) => {
   try {    
 
-      const str = JSON.stringify(req.body)
-      const data =JSON.parse(str)          
+      const str  = JSON.stringify(req.body)
+      const data = JSON.parse(str)          
 
       const doc =  {
-                    footage: data.footage,
-                    category: data.category,
-                    title: data.title,
-                    description: data.description,
-                    price:data.price,
-                    repo: data.repo,
-                    img: data.image
-                }
+        footage: data.footage,
+        category: data.category,
+        title: data.title,
+        description: data.description,
+        price:data.price,
+        repo: data.repo,
+        img: data.image
+      }
 
-       console.log(doc)
       const fabrics = new TextileModel(doc)
       await fabrics.save()
       res.status(200).json( getWrap(200, "add fabrics", fabrics))
@@ -82,8 +83,6 @@ export const addDefault = (req, res) => {
       res.status(404).json( error)
   }
 }
-
-
 
  export const getTitles = async (req, res) => {
   try {
@@ -93,10 +92,9 @@ export const addDefault = (req, res) => {
   }
 }
 
-
 export const getFabrics = async (req, res) => {
   try {
-    const fabrics = await TextileModel.find({}).sort({date:-1}).limit(50)
+    const fabrics = await TextileModel.find({up:true}).sort({date:-1}).limit(50)
     res.status(200).send( getWrap(200, "get fabrics", fabrics) )
   } catch (error) {
     res.status(404).send(error)
@@ -105,7 +103,7 @@ export const getFabrics = async (req, res) => {
 
 export const getActiveProducts = async (req, res) => {
   try {
-    const fabrics = await TextileModel.find({up:true}).limit(50)
+    const fabrics = await TextileModel.find({up:true}).sort({date:-1}).limit(50)
     res.status(200).send( getWrap(200, "get active fabrics", fabrics) )
   } catch (error) {
     res.status(404).send(error)
@@ -136,10 +134,8 @@ export const getFabric = async (req, res) => {
     const fabrics = await TextileModel.find({ _id: req.params.id }).limit(1)
     res.send( getWrap(200, "get fabrics by id", fabrics))   
   } catch (error) {
-
     res.status(404).send(error)
   }
-
 }
 
 export const deleteFabric = async (req, res) => {
@@ -158,7 +154,6 @@ export const deleteFabric = async (req, res) => {
 
 export const updateFabrics = async (req, res) => {
   try {
-
     console.log("id: " + req.params.id)
     console.log("body: " + JSON.stringify(req.body))
       const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, req.body)
@@ -172,8 +167,7 @@ export const updateFabrics = async (req, res) => {
 
 
   export const activateProduct = async (req, res) => {
-    try {
-  
+    try {  
       console.log("activation: " + req.params.id)
       console.log("body: " + JSON.stringify(req.body))
         const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, {up: true})
@@ -186,8 +180,7 @@ export const updateFabrics = async (req, res) => {
   }
 
   export const hideProduct = async (req, res) => {
-    try {
-  
+    try {  
       console.log("hide: " + req.params.id)
       console.log("body: " + JSON.stringify(req.body))
         const fabrics = await TextileModel.findByIdAndUpdate(req.params.id, {up: false})

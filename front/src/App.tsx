@@ -39,7 +39,7 @@ const App:FunctionComponent = () => {
   }
 
   const filterResults  = (items:Product[], word:string):Product[] =>{
-    const products = items.length == 0 || word.length == 0 ? customProducts : customItems
+    const products = items.length === 0 || word.length === 0 ? customProducts : customItems
     return   products.filter( (item:Product) => item.title.toLowerCase().indexOf(word.toLowerCase()) >-1 )              
   }
 

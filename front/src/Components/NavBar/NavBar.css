@@ -1,5 +1,17 @@
-body {
-	margin-top: 2px;
+.btn.btn-outline-success {
+	background: #faeef1;
+	color:#000000;
+	border-color: #ced4da;
+}
+.form-control.me-2{
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+}
+
+btn btn-outline-success {
+	background: #eee;
 }
 
 .card {

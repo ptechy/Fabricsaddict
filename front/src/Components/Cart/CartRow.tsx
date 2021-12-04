@@ -12,8 +12,20 @@ type Props = {
 const CartRow: FunctionComponent<Props> =  (props) => {
 
     let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
-    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + 'tissu.jpg';
+    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + props.Item.img;
     let priceDetail = props.Item.price + '€ ' +'/' + props.Item.footage;
+
+    const addQty = () =>{
+        let current = qty
+        if(current < 5)
+         setQty(qty+1)
+    }
+
+    const removeQty = () =>{
+        let current = qty
+        if(current >1)
+         setQty(qty-1)
+    }
 
         const [qty, setQty] = useState(props.Item.quantity);
         const dispatch = useDispatch()
@@ -26,11 +38,11 @@ const CartRow: FunctionComponent<Props> =  (props) => {
 
         const update = (item:Product, action:string) => {
           if (action === 'increment') {
-               setQty(qty + 1) 
+                addQty() 
           }
 
           if (action === 'decrement') {
-               setQty(qty - 1) 
+               removeQty() 
           }
         }
 
@@ -54,12 +66,12 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             />
         </td>
         <td>{props.Item.title}</td>
-        <td>€{props.Item.price}</td>
+        <td>{props.Item.price} €</td>
         <td>
             <div className="btn-group" role="group" aria-label="Basic example">
             <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-outline-secondary"
                 onClick={() => {
                     if (qty > 1) {
                         update(props.Item, 'decrement') 
@@ -68,10 +80,10 @@ const CartRow: FunctionComponent<Props> =  (props) => {
                 >
                 -
             </button>
-            <span className="btn btn-light">{qty}</span>
+            <button type="button" className="btn btn-outline-secondary">{qty}</button>
             <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-outline-secondary"
                 onClick={() =>  {
                     update(props.Item, 'increment')
                 }}
@@ -80,7 +92,6 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             </button>
             </div>
         </td>
-        <td>{(props.Item.quantity *  props.Item.price).toFixed(2)}€ </td>
         <td>
             <button
             type="button"
@@ -89,6 +100,8 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             X
             </button>
         </td>
+        <td>{(props.Item.quantity *  props.Item.price).toFixed(2)} € </td>
+
         </tr>
     );
 }

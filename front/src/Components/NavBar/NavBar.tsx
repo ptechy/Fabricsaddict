@@ -34,11 +34,10 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
                         <form className="d-flex">
                         <input className="form-control me-2" 
                                 type="search" 
-                                placeholder="Search" 
-                                aria-label="Search"
+                                aria-label="Recherche"
                                 defaultValue = ""
                                 onChange={(e)=>{ props.FilteredResults(props.CustomItems, e.target.value)}} />
-                        <button className="btn btn-outline-success"  >Search</button>
+                        <button className="btn btn-outline-success"  >Recherche</button>
                         </form>
                     </div>
                 </nav>
@@ -54,7 +53,7 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
                         </Link>
                         <Link to="/Cart" className="navbar-brand" >
                             <img src="img/basket.svg" alt="Panier" width="24" height="24"/>
-                            <span className="badge rounded-pill bg-success">{items.length > 0 && items.length}</span>
+                            <span className="badge rounded-pill bg-warning">{items.length > 0 && items.length}</span>
                         </Link>
                     </div>
 				</nav>

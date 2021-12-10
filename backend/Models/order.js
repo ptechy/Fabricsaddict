@@ -47,7 +47,8 @@ const productSchema = new Schema({
 const orderSchema = new Schema({
   customers:[customerSchema],
   products: [productSchema],
-  hidden: { type: Boolean, required: false, default: false }
+  hidden: { type: Boolean, required: false, default: false },
+  date: { type: String, required: true }
 })
 
 const OrderModel = mongoose.model('order', orderSchema)

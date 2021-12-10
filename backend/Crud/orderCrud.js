@@ -1,5 +1,5 @@
 import OrderModel from '../Models/order'
-var randomSentence = require('random-sentence');
+import moment from 'moment'
  
 const getWrap = ( status, msg, json ) =>{
   return ({  
@@ -14,7 +14,8 @@ export const addOrder = async (req, res) => {
       try {  
         const str  = JSON.stringify(req.body)
         const json = JSON.parse(str)         
-      
+        const now =  moment().format("DD-MM-YYYY HH:mm:ss") 
+
           const reqCustomer = json.customers[0]
           const customer = {
               city: reqCustomer.city,
@@ -40,7 +41,8 @@ export const addOrder = async (req, res) => {
       
             const doc = {
               "customers": [customer],
-              "products": products        
+              "products": products,
+              "date": now        
             }
       
         const order = new OrderModel(doc)

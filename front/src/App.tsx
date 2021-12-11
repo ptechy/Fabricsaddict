@@ -25,6 +25,13 @@ const App:FunctionComponent = () => {
   const [customItems, setCustomItems]           = useState<Product[]>([])  // products by category
   const [filtered , setFiltered]                = useState<boolean>(false) // set if filter is active
 
+
+  const reload  = () =>{
+    loadTitle()
+    loadProduct()
+  }
+
+
   // load products by category
   const loadProductByCategory = async (repo:String) => {
     await  axios.get(`${categories_url}/${repo}`)
@@ -49,23 +56,25 @@ const App:FunctionComponent = () => {
       setFiltered( filteredValues.length > 0 ? true : false)
   }
 
+  const loadProduct = async () => {
+    await  axios.get(fabrics_url)
+    .then(result => setCustomProducts(result.data.data))          
+    .catch(error => `Error:${error}`)
+    }
+
+  //getTitles in left menu
+  const loadTitle = async () => {    
+    await  axios
+    .get(title_url)
+    .then(result => setTitles(result.data))
+    .catch(error => `Error:${error}`)  
+  }
+
   // loading titles and products only on page refresh
   useEffect( () => {
 
     //get product list in central area
-    const loadProduct = async () => {
-      await  axios.get(fabrics_url)
-      .then(result => setCustomProducts(result.data.data))          
-      .catch(error => `Error:${error}`)
-      }
 
-    //getTitles in left menu
-    const loadTitle = async () => {    
-      await  axios
-      .get(title_url)
-      .then(result => setTitles(result.data))
-      .catch(error => `Error:${error}`)  
-    }
     
     loadTitle()
     loadProduct()
@@ -77,14 +86,11 @@ const App:FunctionComponent = () => {
     <Router>
       <Fragment>
       <div className="container" >
-          <NavBar  FilteredResults={setfilteredResults} CustomItems={customItems} Filtered={filtered} />  
+          <NavBar  FilteredResults={setfilteredResults} CustomItems={customItems} Filtered={filtered} Reload={reload}/>  
           <Route exact path="/" component={() => <Main CustomProducts={filtered ? customItems : customProducts}   
                                                        Titles = {titles}
                                                        LoadCategory={loadCategory} /> } />
                                                        
-          <Route path="/main" component={() => <Main CustomProducts={filtered ? customItems : customProducts} 
-                                                     Titles = {titles} 
-                                                     LoadCategory={loadCategory} /> } />
           <Route path="/cart" component={Cart}/>
           <Route path="/checkout" component={Checkout}/>     
           <Route path="/Delivery" component={Delivery}/>   

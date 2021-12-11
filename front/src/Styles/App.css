@@ -2,6 +2,10 @@ body {
 	margin-top: 2px;
 }
 
+img {
+	cursor: pointer;
+}
+
 .card {
 	margin-bottom: 40px;
 	position: relative;
@@ -10,6 +14,7 @@ body {
 .card img {
 	display: inline-block;
 	margin: 0 auto;
+	cursor: pointer;
 }
 
 .navbar-brand {

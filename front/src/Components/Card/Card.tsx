@@ -21,12 +21,37 @@ type Props = {
 
 const Card: FunctionComponent<Props> =  (props) =>{
 
+//https://dev.to/anxinyang/create-an-image-magnifier-with-react-3fd7
+   const magnifier = {
+                        "src": "src",
+                        "width": 120, //initial width
+                        "height": 90,  //initialheight
+                        "zoomWidth": 240,
+                        "zoomHeight": 180,
+                        "zoomLevel" : 2 }
+
+    const [[x, y], setXY] = useState([0, 0]);
+    const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
+    const [showMagnifier, setShowMagnifier] = useState(false);
+
+
+
+
+    let magStyle    = { width: magnifier.width+'px', height:magnifier.height + 'px' };
+
     let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
     let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
     let priceDetail = props.Tissu.price + '€ ' +'/' + props.Tissu.footage
   
+
+
+
+
+
+
+
     const dispatch = useDispatch()
 
 
@@ -67,19 +92,77 @@ const Card: FunctionComponent<Props> =  (props) =>{
     return (
         <div className="col-lg-3">
             <div className="card" style={imgStyle}  >
-                <img src={imgPath}
-                     className="img-thumbnail" 
-                     alt="..."/>
-                <div className="card-body">
-                    <h5 className="card-title">{props.Tissu.title}</h5>
-                    <p className="card-text fs-6">{props.Tissu.description}</p>
-                    <div>
-                        <span className="text-start px-1 fs-6">{priceDetail}</span>
-                        <Button  className="btn btn-outline-success"  onClick={handleShow}>
-                            Détail
-                        </Button>
-                    </div>                    
-                </div>                  
+                <div style={magStyle}   >
+                    <img src={imgPath}
+                         style={magStyle} 
+                         onMouseEnter={(e) => {
+                            // update image size and turn-on magnifier
+                            const elem = e.currentTarget;
+                            const { width, height } = elem.getBoundingClientRect();
+                            setSize([width, height]);
+                            setShowMagnifier(true);
+                          }}
+                          onMouseMove={(e) => {
+                            // update cursor position
+                            const elem = e.currentTarget;
+                            const { top, left } = elem.getBoundingClientRect();
+                  
+                            // calculate cursor position on the image
+                            const x = e.pageX - left - window.pageXOffset;
+                            const y = e.pageY - top - window.pageYOffset;
+                            setXY([x, y]);
+                          }}
+                          onMouseLeave={() => {
+                            // close magnifier
+                            setShowMagnifier(false);
+                          }}
+                         className="img-thumbnail" 
+                         alt="..."/>
+                    <div
+                            style={{
+                            display: showMagnifier ? "" : "none",
+                            position: "absolute",
+
+                            // prevent magnifier blocks the mousemove event of img
+                            pointerEvents: "none",
+                            // set size of magnifier
+                            height: `${magnifier.zoomHeight}px`,
+                            width: `${magnifier.zoomWidth}px`,
+                            // move element center to cursor pos
+                            top: `${y - magnifier.height / 2}px`,
+                            left: `${x - magnifier.width / 2}px`,
+                            opacity: "1", // reduce opacity so you can verify position
+                            border: "1px solid lightgray",
+                            backgroundColor: "white",
+                            backgroundImage: `url('${imgPath}')`,
+                            backgroundRepeat: "no-repeat",
+
+                            //calculate zoomed image size
+                            backgroundSize: `${imgWidth * magnifier.zoomLevel}px ${
+                                imgHeight *  magnifier.zoomLevel
+                            }px`,
+
+                            //calculate position of zoomed image.
+                            backgroundPositionX: `${-x * magnifier.zoomLevel + magnifier.width / 2}px`,
+                            backgroundPositionY: `${-y * magnifier.zoomLevel + magnifier.height / 2}px`
+                            }}
+                        ></div>
+
+
+
+
+
+                    <div className="card-body">
+                        <h5 className="card-title">{props.Tissu.title}</h5>
+                        <p className="card-text fs-6">{props.Tissu.description}</p>
+                        <div>
+                            <span className="text-start px-1 fs-6">{priceDetail}</span>
+                            <Button  className="btn btn-outline-success"  onClick={handleShow}>
+                                Détail
+                            </Button>
+                        </div>                    
+                    </div>      
+                </div>            
             </div>
              {/* Modal  */}
             <Modal show={show} onHide={handleClose}>

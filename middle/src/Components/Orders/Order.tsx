@@ -75,7 +75,6 @@ const Order: FunctionComponent<Props> =  (props) =>{
         })      
     }
 
-    const dt =  moment(props.Item.customers[0].date).format('DD-MM-YYYY HH:mm:ss');
 
     return (
 
@@ -86,7 +85,7 @@ const Order: FunctionComponent<Props> =  (props) =>{
             <table className="table table-bordered border-warning">
               <thead>
                 <tr>
-                  <th scope="col">Commande # {props.Item._id}                          | <span>Date: {dt} </span></th>
+                  <th scope="col">Commande # {props.Item._id}                          | <span>Date: {props.Item.date} </span></th>
                   
                 </tr>
               </thead>

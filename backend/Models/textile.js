@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 
 const { Schema }        = mongoose
 const footageEnum       = ['m', 'coupon']
-const decimalValidation = (value) => parseFloat(value) > 0.00
 
 const textileSchema = new Schema({
   category: { type: String, enum: [], required: true, trim: true, lowercase: false },

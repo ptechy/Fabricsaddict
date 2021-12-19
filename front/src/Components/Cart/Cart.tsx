@@ -46,23 +46,23 @@ const Cart: FunctionComponent<Props> =  (props) =>{
                 <li className="list-group-item">
                   <ul className="list-group flex">
                     <li className="text-left">Sous-Total</li>
-                    <li className="text-right">{subTotal.toFixed(2)}€</li>
+                    <li className="text-right">{subTotal.toFixed(2)} €</li>
                   </ul>
                   <ul className="list-group flex">
                     <li className="text-left">Frais d'expedition</li>
-                    <li className="text-right">{shipping}€</li>
+                    <li className="text-right">{shipping} €</li>
                   </ul>
                 </li>     
                 <li className="list-group-item ">
                   <ul className="list-group flex">
                     <li className="text-left">Total</li>
-                    <li className="text-right">{total.toFixed(2)}€</li>
+                    <li className="text-right">{total.toFixed(2)} €</li>
                   </ul>
                 </li>
               </ul>
               
               <button type="button" className="btn btn-light btn-lg btn-block checkout bg-crimson" disabled={checkOutView} >
-              <Link to="/Checkout" className="white"> Checkout </Link>
+              <Link to="/Checkout" className="white">Passer la commande</Link>
               </button>
             </div>
           </div>

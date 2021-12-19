@@ -10,6 +10,7 @@ import Orders from './Components/Orders/Orders'
 import Upload from './Components/Upload/Upload'
 import Hidden from './Components/Hidden/Hidden'
 import Archive from './Components/Archive/Archive'
+import Contacts from './Components/Contact/Contacts'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -92,7 +93,8 @@ const App:FunctionComponent = () => {
           <Route path="/Orders" component={Orders}/>    
           <Route path="/Upload" component={() => <Upload Categories= {titles} />} />   
           <Route path="/Hidden" component={() => <Hidden Categories= {titles} />} />  
-          <Route path="/Archive" component={Archive} />       
+          <Route path="/Archives" component={Archive} />   
+          <Route path="/Contacts" component={Contacts}/>       
       </div>
       </Fragment>
     </Router>

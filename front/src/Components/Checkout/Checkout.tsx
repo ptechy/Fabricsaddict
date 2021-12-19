@@ -3,10 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart,updateCart, addCustomer } from  '../../State/Actions/ActionCreators'
+import { addCustomer } from  '../../State/Actions/ActionCreators'
 import ConfirmDelivery from '../Delivery/ConfirmDelivery'
 import { Redirect } from "react-router";
 import {  useHistory} from "react-router-dom";
+import './Checkout.css'
+
 
 type Props = {
     Idx : NumberConstructor,
@@ -19,25 +21,29 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
     const validationSchema = Yup.object().shape({
       firstName: Yup.string()
           .required('le prénom est obligatoire')
-          .min(2, 'le prénom doit contenir au moins 2 caractères')
-          .max(20, 'le prénom contient au maximum 20 caractères'),
+          .min(2, 'le prénom contient au moins 2 caractères')
+          .max(50, 'le prénom contient au maximum 50 caractères')
+          .matches(/^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/, 'uniquement lettres, tiret, espace ou apostrophe'),
       lastName: Yup.string()
           .required('le nom est obligatoire')
-          .min(2, 'le nom doit contenir au moins 2 caractères')
-          .max(20, 'le nom contient au maximum 20 caractères'),
+          .min(2, 'le nom contient au moins 2 caractères')
+          .max(50, 'le nom contient au maximum 50 caractères')
+          .matches(/^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/, 'uniquement lettres, tiret, espace ou apostrophe'),
       email: Yup.string()
           .required('l\'email est obligatoire')
-          .email('l\'email est invalid'),
+          .email('l\'email est invalide'),
       address: Yup.string()
           .required('l\'adresse est obligatoire')
           .min(2, 'l\'adresse doit contenir au moins 2 caractères')
-          .max(50, 'le nom contient au maximum 50 caractères'),    
-      zipCode: Yup.number()
-          .required('le code postal est obligatoire'),      
+          .max(50, 'le nom contient au maximum 50 caractères'),   
+      zipCode: Yup.string()
+          .required('le code postal est obligatoire')
+          .matches(/^(?:[0-8]\d|9[0-8])\d{3}$/, "le code postale doit contenir 5 chiffres"),       
       city: Yup.string()
           .required('la ville est obligatoire')
           .min(2, 'la ville doit contenir au moins 2 caractères')
           .max(50, 'la ville contient au maximum 50 caractères')    
+          .matches(/^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/, "uniquement lettres, tiret, espace ou apostrophe")
     
   });
 
@@ -50,7 +56,6 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
     const onSubmit = (item: any) => {         
       dispatch(addCustomer(item))
       history.push("/ConfirmDelivery")
-
   }
 
 
@@ -58,28 +63,26 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
         <>
             <section className="section-content padding-y" style={{ margin: '100px auto', maxWidth: '720px' }}>
                 <div className="container" >
-
+                <p className="checkout-head" > Adresse de livraison</p>
                   <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="row">
                                 <div className="col">
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="First name"
+                                    placeholder="Prénom"
                                     {...register('firstName')}                                    
-                                    defaultValue="" 
-                                  />
-                                   <p >{errors.firstName?.message}</p>
+                                    defaultValue="" />
+                                  <p className="invalid-field" >{errors.firstName?.message}</p>
                                 </div>
                                 <div className="col">
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Last name"                             
+                                    placeholder="Nom"                             
                                     {...register('lastName')}
-                                    defaultValue="" 
-                                  />
-                                  <p>{errors.lastName?.message}</p>
+                                    defaultValue="" />
+                                  <p className="invalid-field">{errors.lastName?.message}</p>
                                 </div>
                               </div>
                               <br />
@@ -87,46 +90,44 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Email address"
-                                  {...register('email')}   
-                                />
-                                <p >{errors.email?.message}</p>
+                                  placeholder="Email"
+                                  {...register('email')}  />
+                                <p className="invalid-field" >{errors.email?.message}</p>
                               </div>
                               <br/>
                               <div className="form-group">
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Address"
+                                  placeholder="Addresse"
                                   {...register('address')}
                                   defaultValue=""                />
                               </div>
-                              <p >{errors.address?.message}</p>
+                              <p className="invalid-field" >{errors.address?.message}</p>
                               <br/>
                               <div className="row">
                                 <div className="col">
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Postal Code"
+                                    placeholder="Code postal"
                                    {...register('zipCode')}
                                     defaultValue=""  />
                                 </div>
-                                <p >{errors.zipCode?.message}</p>
+                                <p className="invalid-field" >{errors.zipCode?.message}</p>
                                 <div className="col">
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="City"
+                                    placeholder="Pays"
                                     {...register('city')}
                                     defaultValue=""         
                                   />
                                 </div>
-                                <p >{errors.city?.message}</p>
-                              </div>
-                              <br />
-                             
-                              <input type="submit" />
+                                <p className="invalid-field" >{errors.city?.message}</p>
+                        </div>
+                        <br />                             
+                        <input type="submit" />
 
                   </form>
                         

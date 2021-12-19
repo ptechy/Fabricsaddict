@@ -9,7 +9,6 @@ import {
       activateProduct, 
       hideProduct, 
       getActiveProducts,
-      getFabric,
       addFabrics,
       updateFabrics,
       deleteFabric 
@@ -18,6 +17,7 @@ import {
 
 import {addOrder, getOrders, activateOrder, hideOrder, getActivedOrders, getHiddenOrders } from '../Crud/orderCrud'
 
+import {addContact, getContacts } from '../Crud/contactCrud'
 
 const router = express.Router()
 
@@ -47,12 +47,9 @@ router.put('/api/v1/order/hide/:id', hideOrder)
 
 router.post('/api/v1/order', addOrder )
 
+// route for contact
+router.post('/api/v1/contact', addContact )
+router.get('/api/v1/contacts', getContacts )
 
-// router.get('/api/v1/categories', getCategories)
-
-//       .get('/api/v1/fabrics/:id', getFabric)
-//       .post('/api/v1/fabrics', addFabrics)
-//       .patch('/api/v1/fabrics/:id', updateFabrics)
-//       .delete('/api/v1/fabrics/:id', deleteFabrics)
 
 export default router

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import moment from 'moment';
 import {  useHistory} from "react-router-dom";
-
+import './Orders.css'
 
 import ProductState from '../../Models/Products/ProductState'
 import Product from '../../Models/Products/Product'
@@ -81,39 +81,35 @@ const Order: FunctionComponent<Props> =  (props) =>{
 
       
      
-          <div className="row">
-            <table className="table table-bordered border-warning">
+          <div className="orderTable">
+
+            <table className="table table-sm table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Commande # {props.Item._id}                          | <span>Date: {props.Item.date} </span></th>
-                  
+                  <th scope="col">#   {props.Item._id}  </th>
+                  <th scope="col">Date: {props.Item.date} </th>
+                  <th scope="col"><button type="button" className="btn btn-secondary"  onClick = {() => console.log("modifier")}>Modifier </button>  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
 
-                    <td>
-                          <table className="table table-secondary table-bordered ">
-                              <tbody>
-                                  { props.Item.customers.map( (customer:Customer, index:number) => {  
-                                      return  Object.entries(customer).map(([key, value],  index: number) => {  
-                                                        
-                                                  return( 
-                                                          <tr key={index}>
-                                                          <td> {key}</td>
-                                                          <td>{value}</td>
-                                                          </tr> 
-                                                  )})
-                                  })}
-                            </tbody>
-                          </table>
+                { props.Item.customers.map( (customer:Customer, index:number) => {  
+                          return  Object.entries(customer)
+                                        .filter(([key, value],  index: number) =>  key !== '_id' && key!== 'date')
+                                        .map(([key, value],  index: number) => {                                                       
+                                            return( 
+                                                    <tr key={index}>
+                                                        <th scope="row"> {key}</th>
+                                                        <td colSpan={2} >{value}</td>
+                                                    </tr> 
+                                            )})
+                  })}
 
-                    </td>
-                  
-                </tr>
+
+
                 <tr>
-                  <td>
-                      <table className="table table-success table-bordered border-dark">
+                  <td colSpan={3} >
+                    <table className="table mb-0 table-sm table-success table-bordered border-dark">
                           <tbody>
                               <tr>
 
@@ -138,28 +134,23 @@ const Order: FunctionComponent<Props> =  (props) =>{
                                     }) }
                           </tbody>
                       </table>                
-                  </td>               
-                </tr>                    
+                  </td>
+                </tr>
                 <tr>
-                  <table className="table table-secondary">
-                      <tbody>
-                          <tr>
-
-
-                                          <td>Total</td>
-                                          <td>{total}</td>
-                                          <td>  <button type="button"  className="btn btn-warning"  onClick = {() => hide(props.Item)}  >  
-                                        Cacher
-                        </button>  </td>
-
-                        </tr>                
-
-                      </tbody>
-                  </table>  
-                  
+                  <td>Total:</td>
+                  <td>  {total} €</td>
+                  <td>  <button type="button" className="btn btn-warning"  onClick = {() => hide(props.Item)}>Cacher </button>  </td>
                 </tr>
               </tbody>
-            </table>           
+            </table>
+
+
+
+
+
+
+
+
           </div>)
 
 

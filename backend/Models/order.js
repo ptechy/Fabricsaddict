@@ -4,10 +4,10 @@ const { Schema }    = mongoose
 const footageEnum   = ['m', 'coupon']
 
 
-const nameRegex = /^[ a-zA-Z\-/']+$/
+const nameRegex = /^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/
 const addressRegex = /[A-Za-z0-9'\.\-\s\,]/
 const emailRegex =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-const zipCodeRegex = /[0-9]{5}/
+const zipCodeRegex = /^(?:[0-8]\d|9[0-8])\d{3}$/
 
 
 const nameValidation    = (value) => value.length > 1 && value.length <= 60
@@ -24,11 +24,11 @@ const validateEmail     = (value) => {
 const customerSchema = new Schema({
   firstName: { type: String, required: true, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'first name is incorrect' }, match: nameRegex },
   lastName: { type: String, required: true, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'last name is incorrect' }, match: nameRegex },
-  email: { type: String, required: true, trim: true, lowercase: true, validate: { validator: validateEmail, message: 'email is incorrect' } },
+  email: { type: String, required: true, trim: true, lowercase: true, validate: { validator: validateEmail, message: 'email is incorrect' }, match: emailRegex },
   address: { type: String, required: true, trim: true, lowercase: true, validate: { validator: addressValidation, message: 'address is incorrect' } },
-  city: { type: String, required: true, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'city is incorrect' } },
+  city: { type: String, required: true, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'city is incorrect' }, match: nameRegex },
   country: { type: String, required: false, trim: true, lowercase: true, validate: { validator: nameValidation, message: 'country is incorrect' }, default: 'France' },
-  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'zipCode is incorrect' } },
+  zipCode: { type: String, required: true, trim: true, lowercase: true, validate: { validator: zipCodeValidation, message: 'zipCode is incorrect' },match: zipCodeRegex },
   date: { type: Date, required: false, default: Date.now }
 })
 

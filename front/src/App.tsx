@@ -11,6 +11,9 @@ import axios from 'axios'
 import env from "react-dotenv"
 import Delivery from './Components/Delivery/Delivery'
 import ConfirmDelivery from './Components/Delivery/ConfirmDelivery'
+import Contact from './Components/Contact/Contact'
+import './Styles/App.css';
+
 
 const App:FunctionComponent = () => {
   
@@ -25,42 +28,38 @@ const App:FunctionComponent = () => {
   const [customItems, setCustomItems]           = useState<Product[]>([])  // products by category
   const [filtered , setFiltered]                = useState<boolean>(false) // set if filter is active
 
-
   const reload  = () =>{
+    console.log("Reload")
     loadTitle()
-    loadProduct()
+    loadProducts()
   }
 
 
   // load products by category
   const loadProductByCategory = async (repo:String) => {
     await  axios.get(`${categories_url}/${repo}`)
-    .then(result => setCustomProducts(result.data.data))          
+    .then(result =>{     
+      setCustomProducts(result.data.data)    
+      setFiltered(true)
+    } )     
     .catch(error => `Error:${error}`)
   } 
 
+  const loadProducts = async () => {
+    await  axios.get(fabrics_url)
+    .then(result => {
+      console.log("loadProducts")
+      setCustomItems(result.data.data)
+    })          
+    .catch(error => `Error:${error}`)
+  }
+
+
   // get filtered products
   const loadCategory  = (repo:string) =>{
-    loadProductByCategory(repo) 
-    setFiltered(false) 
+    console.log("loadCategory")
+      loadProductByCategory(repo)  
   }
-
-  const filterResults  = (items:Product[], word:string):Product[] =>{
-    const products = items.length === 0 || word.length === 0 ? customProducts : customItems
-    return   products.filter( (item:Product) => item.title.toLowerCase().indexOf(word.toLowerCase()) >-1 )              
-  }
-
-  const setfilteredResults  = (items:Product[], word:string) =>{
-      const filteredValues = filterResults(items, word)
-      setCustomItems(filteredValues) 
-      setFiltered( filteredValues.length > 0 ? true : false)
-  }
-
-  const loadProduct = async () => {
-    await  axios.get(fabrics_url)
-    .then(result => setCustomProducts(result.data.data))          
-    .catch(error => `Error:${error}`)
-    }
 
   //getTitles in left menu
   const loadTitle = async () => {    
@@ -72,12 +71,10 @@ const App:FunctionComponent = () => {
 
   // loading titles and products only on page refresh
   useEffect( () => {
-
-    //get product list in central area
-
-    
+   
+    console.log("useEffect " )
     loadTitle()
-    loadProduct()
+    loadProducts()
 
   }, []);
 
@@ -86,12 +83,13 @@ const App:FunctionComponent = () => {
     <Router>
       <Fragment>
       <div className="container" >
-          <NavBar  FilteredResults={setfilteredResults} CustomItems={customItems} Filtered={filtered} Reload={reload}/>  
-          <Route exact path="/" component={() => <Main CustomProducts={filtered ? customItems : customProducts}   
+          <NavBar   CustomItems={customItems} Filtered={setFiltered}/>  
+          <Route exact path="/" component={() => <Main CustomProducts={filtered ? customProducts  : customItems} 
                                                        Titles = {titles}
-                                                       LoadCategory={loadCategory} /> } />
-                                                       
-          <Route path="/cart" component={Cart}/>
+                                                       LoadCategory={loadCategory}/> } />
+                  
+          <Route path="/Cart" component={Cart}/>
+          <Route path="/Contact" component={Contact}/>
           <Route path="/checkout" component={Checkout}/>     
           <Route path="/Delivery" component={Delivery}/>   
           <Route path="/ConfirmDelivery" component={ConfirmDelivery}/>   

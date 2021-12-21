@@ -6,7 +6,13 @@ import axios from 'axios'
 import env from "react-dotenv"
 import { bindActionCreators } from "redux";
 import {resetCart} from '../../State/Actions/ActionCreators'
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer
+} from "@paypal/react-paypal-js";
 
+import ButtonPaypalWrapper from './ButtonPaypalWrapper' 
 
 
 type Props = { };
@@ -22,6 +28,8 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
   const base_api         = `${root_url}/${env.API_BASE_URL}`
   const order_url        = `${base_api}/order`
 
+ const currency = "EUR"
+ const amount = 1
 
   const items: ProductState = useSelector( (state: ProductState) => state )
 
@@ -50,7 +58,7 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
         <>
 
                 <div className="jumbotron text-center">
-                  <h3 className="display-6">VOULEZ-VOUS CONFIRMER VOTRE COMMANDE ?</h3>
+                  <h3 className="display-10">CONFIRMER VOTRE COMMANDE ?</h3>
                   <hr />
           
                   <p className="lead">
@@ -59,6 +67,22 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
                     </Link>
                   </p>
                   <br />
+                </div>
+                <div>
+                <div style={{ maxWidth: "495px", minHeight: "200px" }}>
+                        <PayPalScriptProvider
+                            options={{
+                                "client-id": "test",
+                                components: "buttons",
+                                currency: "EUR"
+                            }} >
+
+                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={amount}   />
+
+                        </PayPalScriptProvider>
+                </div>
+
+
                 </div>
 
 

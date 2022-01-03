@@ -86,7 +86,7 @@ const Order: FunctionComponent<Props> =  (props) =>{
             <table className="table table-sm table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">#   {props.Item._id}  </th>
+                  <th scope="col">#   {props.Item.orderId}  </th>
                   <th scope="col">Date: {props.Item.date} </th>
                   <th scope="col"><button type="button" className="btn btn-secondary"  onClick = {() => console.log("modifier")}>Modifier </button>  </th>
                 </tr>

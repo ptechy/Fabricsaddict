@@ -18,9 +18,21 @@
     localStorage.clear()
   }
 
+
+  const reducer = (previousValue, currentValue) => previousValue + currentValue;
+
+  const getTotal = (products: Product[]) => {
+    let values =  products.length== 0 
+    ? [0] 
+    :  products.map((product) => product.quantity * product.price)
+
+    return values.reduce(reducer).toFixed(2)
+  }
+
+
   const initialState: ProductState = localStorage.getItem("state") != null
   ? JSON.parse(localStorage.getItem("state")) 
-  : new ProductState([], [])
+  : new ProductState([], [], 0.00, "0.00")
 
 
   const productReducer = (state:ProductState = initialState, productAction:ProductAction) : ProductState =>  {
@@ -40,12 +52,13 @@
               
             return item
           })
-          const np = new ProductState(state.customers, finalItem)
+          const np = new ProductState(state.customers, finalItem, state.fees, getTotal(finalItem))
           saveToLocalStorage(np)
           return np
         }
 
-        const npr = new ProductState(state.customers, [...state.products, productAction.payload])
+        console.log("zour: "+ state.products.length)
+        const npr = new ProductState(state.customers, [...state.products, productAction.payload], state.fees,  getTotal(state.products))
         saveToLocalStorage(npr)
         return npr
 
@@ -57,13 +70,13 @@
           }              
           return item
         });
-        const nprod =   new ProductState(state.customers, finalUpdate)
+        const nprod =   new ProductState(state.customers, finalUpdate, state.fees,  getTotal(finalUpdate))
         saveToLocalStorage(nprod)
         return nprod
 
       case REMOVE_FROM_CART:
         const finalRemove = state.products.filter(item => item._id !== productAction.payload._id);
-        const rmv =  new ProductState(state.customers, finalRemove)
+        const rmv =  new ProductState(state.customers, finalRemove,state.fees, state.total)
         saveToLocalStorage(rmv)
         return rmv
 
@@ -72,11 +85,11 @@
 
       case RESET_CART:
         resetLocalStorage()
-        return new ProductState([], []);
+        return new ProductState([], [],  0.00, "0.00");
 
       case ADD_CUSTOMER:
       const finalCustomer = productAction.payload
-      const npdt =  new ProductState([finalCustomer], state.products);
+      const npdt =  new ProductState([finalCustomer], state.products, state.fees, state.total);
       saveToLocalStorage(npdt)
       return npdt
  

@@ -5,11 +5,5 @@ import Customer from '../Customer/Customer'
   _id:string
   date:string
 
-  constructor( readonly customers:  Customer[], readonly products: Product[])  { 
-
-    this.customers = customers;
-    this.products = products;
-
-  }
-
+  constructor(readonly orderId:string,  readonly customers:  Customer[], readonly products: Product[], readonly fees:number,readonly total:string)  {}
   };

@@ -7,7 +7,9 @@ import {
 
 
 // Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonPaypalWrapper = ({ currency, showSpinner, amount }) => {
+const ButtonPaypalWrapper = ({ currency, showSpinner, amount,  confirm }) => {
+
+
     // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
     // This is the main reason to wrap the PayPalButtons in a new component
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
@@ -25,6 +27,8 @@ const ButtonPaypalWrapper = ({ currency, showSpinner, amount }) => {
 
     return (<>
             { (showSpinner && isPending) && <div className="spinner" /> }
+
+            <script src="https://www.paypal.com/sdk/js?client-id=AS0XhkqGKtnUh_8HiiuDkupz4EQJ8bhaIyiK_fAAWN7R_icFe3qcMTTDq-p-pjNIg91uEK-IjEyyNIYN&currency=EUR"></script>
             <PayPalButtons
                 style={{"layout":"vertical"}}
                 disabled={false}
@@ -49,7 +53,7 @@ const ButtonPaypalWrapper = ({ currency, showSpinner, amount }) => {
                 }}
                 onApprove={function (data, actions) {
                     return actions.order.capture().then(function () {
-                        // Your code here after capture the order
+                        confirm(data.orderID); 
                     });
                 }}
             />

@@ -40,8 +40,11 @@ export const addOrder = async (req, res) => {
           })
       
             const doc = {
+              "orderId": json.orderId,
               "customers": [customer],
               "products": products,
+              "fees": json.fees,
+              "total": json.total,
               "date": now        
             }
       

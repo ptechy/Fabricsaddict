@@ -16,7 +16,7 @@ const Cart: FunctionComponent<Props> =  (props) =>{
   const [subTotal, setSubTotal]         = useState<number>(0.00)
   const [total, setTotal]               = useState<number>(0.00)
   const [checkOutView, setCheckOutView] = useState<boolean>(true)
-  const shipping                        = 10.00
+  const shipping                        = 0.00
 
 
   useEffect(() => {

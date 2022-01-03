@@ -36,7 +36,7 @@ const productSchema = new Schema({
   category: { type: String, enum: [], required: true, trim: true, lowercase: false },
   title: { type: String, required: true, trim: true, lowercase: false },
   description: { type: String, required: true, trim: true, lowercase: false },
-  price: { type: String, required: true },
+  price: { type: Number, required: true },
   quantity: { type: Number, required: true, minLength: 0, maxLength: 10000 },
   footage: { type: String, enum: footageEnum, required: false, trim: true, lowercase: true, default: 'm' },
   img: { type: String, required: false, trim: true, lowercase: false },
@@ -45,8 +45,11 @@ const productSchema = new Schema({
 })
 
 const orderSchema = new Schema({
+  orderId: { type: String, required: true, trim: true, lowercase: false },
   customers:[customerSchema],
   products: [productSchema],
+  fees: { type: Number, required: true },
+  total: { type: Number, required: true },
   hidden: { type: Boolean, required: false, default: false },
   date: { type: String, required: true }
 })

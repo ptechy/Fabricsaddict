@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import env from "react-dotenv"
 import { bindActionCreators } from "redux";
+import {  useHistory} from "react-router-dom";
 import {resetCart} from '../../State/Actions/ActionCreators'
 import {
   PayPalScriptProvider,
@@ -23,35 +24,39 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
   // const items = useSelector(state => state.items)
   const dispatch = useDispatch()
 
-
+  const history                 = useHistory();
   const root_url         = `${env.SERVER_ADDR}:${env.API_PORT}`
   const base_api         = `${root_url}/${env.API_BASE_URL}`
   const order_url        = `${base_api}/order`
 
  const currency = "EUR"
- const amount = 1
+
 
   const items: ProductState = useSelector( (state: ProductState) => state )
+  const amount = items.total
+
 
   useEffect(() => {    
     
 })
 
-  const commitOrder = async () => {
-      await  axios.post(order_url,items)
+const reset = () => {
+  dispatch(resetCart())
+}
+
+
+  const commitOrder = async (orderId) => {
+      await  axios.post(order_url, {orderId, ...items})
           .then((res) => {
             console.log(res.data)
         }).catch((error) => {
             console.log(error)
         });
-
         
-        reset()
+        reset()        
+        history.push("/Delivery")
   }
 
-  const reset = () => {
-    dispatch(resetCart())
- }
 
 
     return (
@@ -60,12 +65,6 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
                 <div className="jumbotron text-center">
                   <h3 className="display-10">CONFIRMER VOTRE COMMANDE ?</h3>
                   <hr />
-          
-                  <p className="lead">
-                     <Link className="btn btn-outline-warning btn-lg" to="/Delivery" onClick={()=> commitOrder()} >
-                      Confirmer
-                    </Link>
-                  </p>
                   <br />
                 </div>
                 <div>
@@ -77,7 +76,7 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
                                 currency: "EUR"
                             }} >
 
-                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={amount}   />
+                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={amount} confirm={commitOrder}  />
 
                         </PayPalScriptProvider>
                 </div>

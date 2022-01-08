@@ -1,18 +1,18 @@
 import React, { FunctionComponent,useState,useEffect } from 'react';
 import {  Link } from 'react-router-dom';
-import Product from '../../Models/Products/Product'
-import ProductState from '../../Models/Products/ProductState'
+import IProduct from '../../Models/Products/Product'
+import IProductState from '../../Models/Products/ProductState'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import "../../Styles/App.css";
 import CartTable from './CartTable'
 
 type Props = {
-    Items: Product[]
+    Items: IProduct[]
 }
 
 const Cart: FunctionComponent<Props> =  (props) =>{
 
-  const items: Product[]                = useSelector( (state: ProductState) => state.products  )
+  const items: IProduct[]                = useSelector( (state: IProductState) => state.products  )
   const [subTotal, setSubTotal]         = useState<number>(0.00)
   const [total, setTotal]               = useState<number>(0.00)
   const [checkOutView, setCheckOutView] = useState<boolean>(true)
@@ -20,7 +20,7 @@ const Cart: FunctionComponent<Props> =  (props) =>{
 
 
   useEffect(() => {
-        let totals = items.map((item:Product) => {
+        let totals = items.map((item:IProduct) => {
         return item.quantity * item.price
       })
 

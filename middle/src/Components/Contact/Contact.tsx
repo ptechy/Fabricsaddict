@@ -4,9 +4,9 @@ import moment from 'moment';
 import {  useHistory} from "react-router-dom";
 import './Contacts.css'
 
-import ProductState from '../../Models/Products/ProductState'
-import Product from '../../Models/Products/Product'
-import Customer from '../../Models/Customer/Customer'
+import IProductState from '../../Models/Products/ProductState'
+import IProduct from '../../Models/Products/Product'
+import ICustomer from '../../Models/Customer/Customer'
 import axios from 'axios'
 
 import env from "react-dotenv"

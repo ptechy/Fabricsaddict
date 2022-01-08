@@ -1,12 +1,12 @@
 import React, {FunctionComponent, Fragment,useState,useEffect} from 'react'
-import Product from '../../Models/Products/Product'
+import IProduct from '../../Models/Products/Product'
 import CartRow from './CartRow'
 import "../../Styles/App.css";
 import CSS from 'csstype';
 
 
 type Props = {
-    Items: Product[]
+    Items: IProduct[]
    };
 
 
@@ -27,7 +27,7 @@ const CartTable: FunctionComponent<Props> =  (props) =>{
           <th className="cartTable">Quantity</th>
           <th className="cartTable">Total</th>
         </tr>
-        {props.Items.map((item : Product, index: number) => {
+        {props.Items.map((item : IProduct, index: number) => {
           return(<CartRow Item={item} key={index} />)
         })}
         </tbody>

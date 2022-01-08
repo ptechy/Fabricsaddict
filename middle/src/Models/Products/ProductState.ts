@@ -1,9 +1,14 @@
-import Product from './Product'
-import Customer from '../Customer/Customer' 
+import IProduct from './Product'
+import ICustomer from '../Customer/Customer' 
  
- export default class  ProductState {
-  _id:string
-  date:string
-
-  constructor(readonly orderId:string,  readonly customers:  Customer[], readonly products: Product[], readonly fees:number,readonly total:string)  {}
-  };
+ export default interface  IProductState {
+    readonly _id:string
+    readonly orderId:string
+    readonly customers:  ICustomer[]
+    readonly products: IProduct[]
+    readonly fees:string
+    readonly totalBeforeFees:string
+    readonly total:string
+    readonly hidden:boolean
+    readonly date:string
+ }

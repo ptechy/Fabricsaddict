@@ -3,20 +3,15 @@ import mongoose from 'mongoose'
 const { Schema }    = mongoose
 const footageEnum   = ['m', 'coupon']
 
-
-const nameRegex = /^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/
-const addressRegex = /[A-Za-z0-9'\.\-\s\,]/
-const emailRegex =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-const zipCodeRegex = /^(?:[0-8]\d|9[0-8])\d{3}$/
+const nameRegex     = /^[A-Za-z]+((\s)?((\'|\-.)?([A-Za-z])+))*$/
+const emailRegex    =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+const zipCodeRegex  = /^(?:[0-8]\d|9[0-8])\d{3}$/
 
 
 const nameValidation    = (value) => value.length > 1 && value.length <= 60
 const addressValidation = (value) => value.length > 5 && value.length <= 150
 const zipCodeValidation = (value) => value.length > 4
-const validateEmail     = (value) => {
-                              const regex = emailRegex
-                              return regex.test(value)
-                          }
+const validateEmail     = (value) => emailRegex.test(value)
 
 
 
@@ -49,6 +44,7 @@ const orderSchema = new Schema({
   customers:[customerSchema],
   products: [productSchema],
   fees: { type: Number, required: true },
+  totalBeforeFees: { type: Number, required: true },
   total: { type: Number, required: true },
   hidden: { type: Boolean, required: false, default: false },
   date: { type: String, required: true }

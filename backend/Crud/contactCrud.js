@@ -8,7 +8,7 @@ const getWrap = ( status, msg, json ) =>{
     results: json.length,
     message: msg,
     data: json})
-} 
+ } 
 
 
  export const addContact = async (req, res) => {
@@ -26,9 +26,10 @@ const getWrap = ( status, msg, json ) =>{
 
       const contact = new ContactModel(doc)
       await contact.save()
-      res.status(200).json({"status":"ok"})   
+      res.status(200)
+
   } catch (error) {
-      res.status(404).json( error)
+     // res.status(404).json( error)
   }
 }
 
@@ -38,7 +39,7 @@ export const getContacts = async (req, res) => {
     const contacts = await ContactModel.find({}).sort({date:-1})
     res.status(200).send( getWrap(200, "get contacts", contacts) )
   } catch (error) {
-    res.status(404).send(error)
+  //  res.status(404).send(error)
   }
 }
 

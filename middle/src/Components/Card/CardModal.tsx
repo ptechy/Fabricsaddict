@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {  useHistory, useLocation} from "react-router-dom";
-import Product from '../../Models/Products/Product'
+import IProduct from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
@@ -16,7 +16,7 @@ import env from "react-dotenv"
 
 
     type Props = {
-        Tissu: Product,
+        Tissu: IProduct,
         Show: boolean,
         SetShow: (value:boolean)=>void,
         Idx : number,
@@ -79,7 +79,7 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
         window.location.reload();
     }
 
-    const hide = async (item:Product) =>{
+    const hide = async (item:IProduct) =>{
 
         const targetUrl =  hide_url + item._id
         await  axios.put(targetUrl,item)
@@ -102,7 +102,7 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
 
 
 
-    const onSubmit = (item:Product) => {       
+    const onSubmit = (item:IProduct) => {       
         
 
         const finalFootage = footage

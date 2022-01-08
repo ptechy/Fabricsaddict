@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import ProductState from '../../Models/Products/ProductState'
+import IProductState from '../../Models/Products/ProductState'
 import axios from 'axios'
 import env from "react-dotenv"
 import Order from './Order'
@@ -15,18 +15,18 @@ const Orders: FunctionComponent =  () =>{
   const order_url        = `${base_api}/orders/active`
 
 
-  const [orders, setOrders]   = useState<ProductState[]>([])
+  const [orders, setOrders]   = useState<IProductState[]>([])
 
-
+  const loadOrders = async () => {
+    await  axios.get(order_url)
+    .then( result => setOrders(result.data.data) )         
+    .catch(error => `Error:${error}`)
+    }
   // loading titles and products only on page refresh
   useEffect( () => {
 
     //get product list in central area
-    const loadOrders = async () => {
-      await  axios.get(order_url)
-      .then( result => setOrders(result.data.data) )         
-      .catch(error => `Error:${error}`)
-      }
+
 
       loadOrders()
 
@@ -39,7 +39,7 @@ const Orders: FunctionComponent =  () =>{
         <span className="fs-1 primary>"> nombre de commandes : {orders.length}</span>
         <br />
         <br />
-      { orders.map( (productState:ProductState, index:number) => {            
+      { orders.map( (productState:IProductState, index:number) => {            
         return <Order Item={productState} Key={index} />
       })}
 

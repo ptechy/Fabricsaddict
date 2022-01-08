@@ -11,13 +11,14 @@ type Props = {
 
 const CartRow: FunctionComponent<Props> =  (props) => {
 
-    let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
-    let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + props.Item.img;
-    let priceDetail = props.Item.price + '€ ' +'/' + props.Item.footage;
+    const maxProduct = 10
+    let imgStyle     = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
+    let imgPath      = process.env.PUBLIC_URL + '/img/' + props.Item.repo + '/' + props.Item.img;
+    let priceDetail  = props.Item.price + '€ ' +'/' + props.Item.footage;
 
     const addQty = () =>{
         let current = qty
-        if(current < 5)
+        if(current < maxProduct)
          setQty(qty+1)
     }
 

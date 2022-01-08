@@ -1,11 +1,11 @@
 import React, {FunctionComponent, Fragment,useState,useEffect} from 'react'
-import Product from '../../Models/Products/Product'
+import IProduct from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart,updateCart, removeFromCart } from  '../../State/Actions/ActionCreators'
 
 type Props = {
-    Item: Product,
+    Item: IProduct,
     key: number
 };
 
@@ -18,13 +18,13 @@ const CartRow: FunctionComponent<Props> =  (props) => {
         const [qty, setQty] = useState(props.Item.quantity);
         const dispatch = useDispatch()
 
-        const updateBag = (product:Product, qty:number) =>{
+        const updateBag = (product:IProduct, qty:number) =>{
             const item = {...product,... {quantity:qty}}
             dispatch(updateCart(item))
         }
 
 
-        const update = (item:Product, action:string) => {
+        const update = (item:IProduct, action:string) => {
           if (action === 'increment') {
                setQty(qty + 1) 
           }
@@ -34,7 +34,7 @@ const CartRow: FunctionComponent<Props> =  (props) => {
           }
         }
 
-        const remove = (product:Product) => {
+        const remove = (product:IProduct) => {
           dispatch(removeFromCart(product))
         }
 

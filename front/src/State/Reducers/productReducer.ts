@@ -2,15 +2,12 @@
 
  import ProductAction from '../../Models/Products/ProductAction'
  import Product from '../../Models/Products/Product'
- import Customer from '../../Models/Customer/Customer'
-
  import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART, ADD_CUSTOMER } from "../Actions/actionTypes"
  import ProductState from '../../Models/Products/ProductState'
 
 
   const saveToLocalStorage = (state:ProductState) => {
     const str = JSON.stringify(state)
-    console.log("localStorage : \n\r" + str)
     localStorage.setItem("state", str )
   }
 
@@ -19,20 +16,12 @@
   }
 
 
-  const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
-  const getTotal = (products: Product[]) => {
-    let values =  products.length== 0 
-    ? [0] 
-    :  products.map((product) => product.quantity * product.price)
-
-    return values.reduce(reducer).toFixed(2)
-  }
 
 
   const initialState: ProductState = localStorage.getItem("state") != null
   ? JSON.parse(localStorage.getItem("state")) 
-  : new ProductState([], [], 0.00, "0.00")
+  : new ProductState([], [])
 
 
   const productReducer = (state:ProductState = initialState, productAction:ProductAction) : ProductState =>  {
@@ -52,13 +41,12 @@
               
             return item
           })
-          const np = new ProductState(state.customers, finalItem, state.fees, getTotal(finalItem))
+          const np = new ProductState(state.customers, finalItem)
           saveToLocalStorage(np)
           return np
         }
 
-        console.log("zour: "+ state.products.length)
-        const npr = new ProductState(state.customers, [...state.products, productAction.payload], state.fees,  getTotal(state.products))
+        const npr = new ProductState(state.customers, [...state.products, productAction.payload])
         saveToLocalStorage(npr)
         return npr
 
@@ -70,13 +58,13 @@
           }              
           return item
         });
-        const nprod =   new ProductState(state.customers, finalUpdate, state.fees,  getTotal(finalUpdate))
+        const nprod =   new ProductState(state.customers, finalUpdate)
         saveToLocalStorage(nprod)
         return nprod
 
       case REMOVE_FROM_CART:
         const finalRemove = state.products.filter(item => item._id !== productAction.payload._id);
-        const rmv =  new ProductState(state.customers, finalRemove,state.fees, state.total)
+        const rmv =  new ProductState(state.customers, finalRemove)
         saveToLocalStorage(rmv)
         return rmv
 
@@ -85,11 +73,11 @@
 
       case RESET_CART:
         resetLocalStorage()
-        return new ProductState([], [],  0.00, "0.00");
+        return new ProductState([], []);
 
       case ADD_CUSTOMER:
       const finalCustomer = productAction.payload
-      const npdt =  new ProductState([finalCustomer], state.products, state.fees, state.total);
+      const npdt =  new ProductState([finalCustomer], state.products);
       saveToLocalStorage(npdt)
       return npdt
  

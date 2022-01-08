@@ -33,7 +33,7 @@ const Contact: FunctionComponent =  () =>{
           .email('l\'email est invalide'),
       message: Yup.string()
           .required('le message est obligatoire')
-          .min(2, 'l\'adresse doit contenir au moins 2 caractères')
+          .min(50, 'le message doit contenir au moins 50 caractères')
           .max(1000, 'le nom contient au maximum 1000 caractères'),
       captcha: Yup.string()
           .required('recopier le mot ci-dessous')

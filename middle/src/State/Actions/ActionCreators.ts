@@ -1,15 +1,15 @@
 
 import {ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, SAVE_CART, RESET_CART, ADD_CUSTOMER, UPDATE_CUSTOMER } from "./actionTypes"
-import Product from '../../Models/Products/Product'
-import Customer from '../../Models/Customer/Customer'
-import ProductState from "../../Models/Products/ProductState"
+import IProduct from '../../Models/Products/Product'
+import ICustomer from '../../Models/Customer/Customer'
+import IProductState from "../../Models/Products/ProductState"
 
 
 /*
  * action creators
  */
 
-export const addToCart = (item:Product, qty:number)=> {
+export const addToCart = (item:IProduct, qty:number)=> {
     const product = {...item, ...{quantity: qty }}
     return {
         type: ADD_TO_CART, 
@@ -18,7 +18,7 @@ export const addToCart = (item:Product, qty:number)=> {
  }
 
 
- export const updateCart = (item:Product) => {
+ export const updateCart = (item:IProduct) => {
      return {
          type : UPDATE_CART, 
          payload : item
@@ -26,7 +26,7 @@ export const addToCart = (item:Product, qty:number)=> {
  }
 
  
-export const removeFromCart = (item:Product) =>{
+export const removeFromCart = (item:IProduct) =>{
      return {
          type: REMOVE_FROM_CART, 
          payload: item
@@ -34,7 +34,7 @@ export const removeFromCart = (item:Product) =>{
  }
 
  
-export const saveCart = (items:ProductState) =>{
+export const saveCart = (items:IProductState) =>{
      return {
          type: SAVE_CART, 
          payload: items
@@ -50,7 +50,7 @@ export const resetCart = () => {
 }
 
 
-export const addCustomer = (item:Customer) => {
+export const addCustomer = (item:ICustomer) => {
     return {
         type: ADD_CUSTOMER, 
         payload: item
@@ -59,7 +59,7 @@ export const addCustomer = (item:Customer) => {
 
 
 
-export const updateCustomer = (item:Customer) => {
+export const updateCustomer = (item:ICustomer) => {
     return {
         type: UPDATE_CUSTOMER, 
         payload: item

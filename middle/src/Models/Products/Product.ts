@@ -1,5 +1,5 @@
 
-  export default interface Product {
+  export default interface IProduct {
     _id:string,
     category: string,
     title: string,

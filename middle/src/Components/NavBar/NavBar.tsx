@@ -1,13 +1,12 @@
 import React, { Fragment, FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
-import Product from '../../Models/Products/Product'
-import ProductState from '../../Models/Products/ProductState'
-import {  useSelector } from 'react-redux'
+import IProduct from '../../Models/Products/Product'
+import IProductState from '../../Models/Products/ProductState'
 import './NavBar.css';
 
 type Props = {
-    CustomItems: Product[],
-    FilteredResults:  (customItems:Product[], input:string)=> void 
+    CustomItems: IProduct[],
+    FilteredResults:  (customItems:IProduct[], input:string)=> void 
     Filtered: boolean
 };
    
@@ -15,9 +14,7 @@ type Props = {
 
 const NavBar: FunctionComponent<Props> =  (props) =>{
 
-    const items: Product[] = useSelector(
-        (state: ProductState) => state.products
-      );
+
 
     return (
         <Fragment>

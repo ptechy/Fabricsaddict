@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {  useHistory, useLocation} from "react-router-dom";
-import Product from '../../Models/Products/Product'
+import IProduct from '../../Models/Products/Product'
 import "../../Styles/App.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Button,Modal } from 'react-bootstrap';
@@ -16,7 +16,7 @@ import CardModal from "./CardModal"
 
 
 type Props = {
-    Tissu: Product,
+    Tissu: IProduct,
     Categories: Category[],
     Idx : number
    };

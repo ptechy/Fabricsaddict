@@ -4,8 +4,8 @@ import axios from 'axios'
 import React, {FunctionComponent, Fragment, useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {  useHistory} from "react-router-dom";
-import ProductState from '../../Models/Products/ProductState'
-import Product from '../../Models/Products/Product';
+import IProductState from '../../Models/Products/ProductState'
+import IProduct from '../../Models/Products/Product';
 
 import env from "react-dotenv"
 
@@ -19,13 +19,13 @@ import CardModal from "../Card/CardModal"
     const order_url               = `${base_api}/orders/hidden`
     const activate_Order          = `${base_api}/order/activate/`
     const history                 = useHistory();
-    const [orders, setOrders]     = useState<ProductState[]>([])
+    const [orders, setOrders]     = useState<IProductState[]>([])
 
     const [show, setShow] = useState(false);
 
     const handleShow      = () => setShow(true);
 
-    const activate = async (item:ProductState) =>{
+    const activate = async (item:IProductState) =>{
 
         const targetUrl =  activate_Order + item._id
         await  axios.put(targetUrl)
@@ -35,7 +35,7 @@ import CardModal from "../Card/CardModal"
           });
 
 
-        history.push("/Main")
+        history.push("/")
     }
 
 
@@ -58,7 +58,7 @@ import CardModal from "../Card/CardModal"
         <div className="list-group">
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr  key="123">
                         <th scope="col">N° de commande</th>
                         <th scope="col">Date</th>
                         <th scope="col">Nom</th>
@@ -69,25 +69,20 @@ import CardModal from "../Card/CardModal"
                     </tr>
                 </thead>
                  <tbody>
-                        { orders.map((item:ProductState, index:number) =>{
-                            const reducer = (previousValue, currentValue) => previousValue + currentValue;
-                            let values = item.products.map((item:Product) => {
-                            return item.quantity * item.price
-                            })
-
-                            const dt =  moment(item.customers[0].date).format('DD-MM-YYYY HH:mm:ss');
-                            let total = values.reduce(reducer)
+                        { orders.map((item:IProductState, index:number) =>{
+                           
                             return(  
                             
-                                <tr>
+                                <tr key={index} >
                                     <td>{item._id} </td>
-                                    <td>{dt} </td>
+                                    <td>{item.date} </td>
                                     <td>{item.customers[0].firstName}</td>
                                     <td>{item.customers[0].lastName}</td>
-                                    <td>{total}</td>
+                                    <td>{item.total}</td>
                                     <td>update</td>
                                     <td> 
-                                        <button type="button"   className="list-group-item list-group-item-action"        onClick = {() => activate(item)}
+                                        <button type="button"   className="list-group-item list-group-item-action"   
+                                             onClick = {() => activate(item)}
                                             key={index}  >  
                                         Activer
                                     </button>                

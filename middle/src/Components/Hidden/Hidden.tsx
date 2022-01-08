@@ -2,7 +2,7 @@
 import React, {FunctionComponent, Fragment, useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {  useHistory} from "react-router-dom";
-import Product from '../../Models/Products/Product'
+import IProduct from '../../Models/Products/Product'
 
 import axios from 'axios'
 import env from "react-dotenv"
@@ -25,13 +25,13 @@ type Props = {
     const hidden_url       = `${base_api}/fabrics/hidden`
     const activate_url     = `${base_api}/product/activate/`
     const history = useHistory();
-    const [customProducts, setCustomProducts]     = useState<Product[]>([])
+    const [customProducts, setCustomProducts]     = useState<IProduct[]>([])
 
     const [show, setShow] = useState(false);
 
     const handleShow      = () => setShow(true);
 
-    const activate = async (item:Product) =>{
+    const activate = async (item:IProduct) =>{
 
         const targetUrl =  activate_url + item._id
         await  axios.put(targetUrl,item)
@@ -73,7 +73,7 @@ type Props = {
                     </tr>
                 </thead>
                  <tbody>
-                        { customProducts.map((item:Product, index:number) =>{
+                        { customProducts.map((item:IProduct, index:number) =>{
 
                             let imgPath     = process.env.PUBLIC_URL + '/img/' + item.repo + '/' + item.img
 

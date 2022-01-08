@@ -2,12 +2,12 @@ import React, { FunctionComponent} from 'react';
 import { connect } from 'react-redux'
 import SideMenu from './SideMenu';
 import House from './House';
-import Product from '../../Models/Products/Product';
+import IProduct from '../../Models/Products/Product';
 import Category from '../../Models/Fabric/Category'
 
 type Props = {
     Titles: Category[],
-    CustomProducts: Product[],
+    CustomProducts: IProduct[],
     LoadCategory: (repo:string)=> void 
    };
 

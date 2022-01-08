@@ -3,7 +3,7 @@ import React, {FunctionComponent, Fragment, useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import NavBar from './Components/NavBar/NavBar'
 import Main from './Components/Home/Main'
-import Product from './Models/Products/Product'
+import IProduct from './Models/Products/Product'
 import Card from './Components/Card/Card'
 import Category from './Models/Fabric/Category'
 import Orders from './Components/Orders/Orders'
@@ -23,8 +23,8 @@ const App:FunctionComponent = () => {
   const categories_url   = `${base_api}/categories`
 
   const [titles, setTitles]                     = useState<Category[]>([])
-  const [customProducts, setCustomProducts]     = useState<Product[]>([])
-  const [customItems, setCustomItems]           = useState<Product[]>([])  // products by category
+  const [customProducts, setCustomProducts]     = useState<IProduct[]>([])
+  const [customItems, setCustomItems]           = useState<IProduct[]>([])  // products by category
   const [filtered , setFiltered]                = useState<boolean>(false) // set if filter is active
 
   // load products by category
@@ -40,12 +40,12 @@ const App:FunctionComponent = () => {
     setFiltered(false) 
   }
 
-  const filterResults  = (items:Product[], word:string):Product[] =>{
+  const filterResults  = (items:IProduct[], word:string):IProduct[] =>{
     const products = items.length == 0 || word.length == 0 ? customProducts : customItems
-    return   products.filter( (item:Product) => item.title.toLowerCase().indexOf(word.toLowerCase()) >-1 )              
+    return   products.filter( (item:IProduct) => item.title.toLowerCase().indexOf(word.toLowerCase()) >-1 )              
   }
 
-  const setfilteredResults  = (items:Product[], word:string) =>{
+  const setfilteredResults  = (items:IProduct[], word:string) =>{
       const filteredValues = filterResults(items, word)
       setCustomItems(filteredValues) 
       setFiltered( filteredValues.length > 0 ? true : false)

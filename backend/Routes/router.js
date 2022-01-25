@@ -1,6 +1,6 @@
 import express from 'express'
 import {addOrder, getOrders, activateOrder, hideOrder, getActivedOrders, getHiddenOrders } from '../Crud/orderCrud'
-import {addContact, getContacts } from '../Crud/contactCrud'
+import {addContact, getContacts, getReplied } from '../Crud/contactCrud'
 import { getTitles,
          getFabricsByCategory,  
          getFabrics, 
@@ -44,6 +44,7 @@ router.post('/api/v1/order', addOrder )
 
 // route for contact
 router.get('/api/v1/contacts', getContacts )
+router.get('/api/v1/replied', getReplied )
 
 router.post('/api/v1/contact', addContact )
 

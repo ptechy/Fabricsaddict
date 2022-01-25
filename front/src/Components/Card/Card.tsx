@@ -37,8 +37,9 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
 
 
-    let magStyle    = { width: magnifier.width+'px', height:magnifier.height + 'px' };
+    let magStyle    = { width: magnifier.width+'px', height:magnifier.height + 'px',  margin: 3 + 'px'  };
 
+    let imgContainerStyle    = {alignItems: 'center'};
     let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
@@ -54,13 +55,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
     const dispatch = useDispatch()
 
-
-    // const [qty, setQty] = useState(1);
-    // const dispatch = useDispatch()
   
-    // const add = (item, quantity) => {
-    //   dispatch(addtoCart(item, quantity))
-    // }
     const ref = useRef<HTMLButtonElement>(null);
     const [tabIndex, focused, handleKeyDown, handleClick] = useRovingTabIndex(
         ref, // Don't change the value of this ref.
@@ -79,7 +74,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
         const addQty = () =>{
             let current = qty
-            if(current < 5)
+            if(current < 10)
              setQty(qty+1)
         }
 
@@ -89,13 +84,15 @@ const Card: FunctionComponent<Props> =  (props) =>{
              setQty(qty-1)
         }
 
+
     return (
         <div className="col-lg-3">
             <div className="card" style={imgStyle}  >
-                <div style={magStyle}   >
-                    <img src={imgPath}
-                         style={magStyle} 
-                         onMouseEnter={(e) => {
+                <div  >
+                    <div  className="center" >
+                            <img src={imgPath} 
+                       
+                          onMouseEnter={(e) => {
                             // update image size and turn-on magnifier
                             const elem = e.currentTarget;
                             const { width, height } = elem.getBoundingClientRect();
@@ -117,7 +114,9 @@ const Card: FunctionComponent<Props> =  (props) =>{
                             setShowMagnifier(false);
                           }}
                          className="img-thumbnail" 
+
                          alt="..."/>
+                    </div>     
                     <div
                             style={{
                             display: showMagnifier ? "" : "none",
@@ -147,10 +146,6 @@ const Card: FunctionComponent<Props> =  (props) =>{
                             backgroundPositionY: `${-y * magnifier.zoomLevel + magnifier.height / 2}px`
                             }}
                         ></div>
-
-
-
-
 
                     <div className="card-body">
                         <h5 className="card-title">{props.Tissu.title}</h5>

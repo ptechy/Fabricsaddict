@@ -155,7 +155,7 @@ const CardModal: FunctionComponent<Props> =  (props) =>{
                                 <div className="container">
                                         <div className="col">
                                             <div className="row">
-                                                <div className="col-sm-3"><img src={imgPath}className="img-thumbnail" alt="..."/>
+                                                <div className="col-sm-3"><img src={imgPath} className="img-thumbnail" alt="..."/>
                                                 </div>
                                                 <label>
                                                         Image:

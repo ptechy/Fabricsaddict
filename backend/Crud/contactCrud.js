@@ -36,8 +36,19 @@ const getWrap = ( status, msg, json ) =>{
 
 export const getContacts = async (req, res) => {
   try {
-    const contacts = await ContactModel.find({}).sort({date:-1})
+    const contacts = await ContactModel.find({ archived:false}).sort({date:-1})
     res.status(200).send( getWrap(200, "get contacts", contacts) )
+  } catch (error) {
+  //  res.status(404).send(error)
+  }
+}
+
+
+
+export const getReplied = async (req, res) => {
+  try {
+    const contacts = await ContactModel.find({ archived:true}).sort({date:-1})
+    res.status(200).send( getWrap(200, "get replied", contacts) )
   } catch (error) {
   //  res.status(404).send(error)
   }

@@ -69,18 +69,8 @@ const Card: FunctionComponent<Props> =  (props) =>{
           });
       }
 
-    const ref = useRef<HTMLButtonElement>(null);
-
-    const [img, setImg] = useState('')
-    const [category, setCategory] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [footage, setFootage] = useState('')
-    const [price, setPrice] = useState('')
-
-      const [show, setShow] = useState(false);
-
-      const handleShow      = () => setShow(true);
+    const [show, setShow] = useState(false);
+    const handleShow      = () => setShow(true);
 
 
 

@@ -40,7 +40,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
     let magStyle    = { width: magnifier.width+'px', height:magnifier.height + 'px',  margin: 3 + 'px'  };
 
     let imgContainerStyle    = {alignItems: 'center'};
-    let imgStyle    = { width: 250+'px', height:400 + 'px', margin: 3 + 'px'  };
+    let imgStyle    = { width: 250+'px', height:350 + 'px', margin: 3 + 'px'  };
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
     let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
@@ -151,10 +151,11 @@ const Card: FunctionComponent<Props> =  (props) =>{
                         <h5 className="card-title">{props.Tissu.title}</h5>
                         <p className="card-text fs-6">{props.Tissu.description}</p>
                         <div>
-                            <span className="text-start px-1 fs-6">{priceDetail}</span>
-                            <Button  className="btn btn-outline-success"  onClick={handleShow}>
-                                Détail
-                            </Button>
+                           <p  className="priceWrap"> <span className="articlePrice" >{priceDetail}</span>
+                                <Button  className="btn btn-outline-success"  onClick={handleShow}>
+                                        Détail
+                                </Button>
+                            </p>
                         </div>                    
                     </div>      
                 </div>            

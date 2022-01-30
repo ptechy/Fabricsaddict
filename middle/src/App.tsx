@@ -11,6 +11,7 @@ import Upload from './Components/Upload/Upload'
 import Hidden from './Components/Hidden/Hidden'
 import Archive from './Components/Archive/Archive'
 import Contacts from './Components/Contact/Contacts'
+import Replied from './Components/Replied/Replied'
 import axios from 'axios'
 import env from "react-dotenv"
 
@@ -95,6 +96,7 @@ const App:FunctionComponent = () => {
           <Route path="/Hidden" component={() => <Hidden Categories= {titles} />} />  
           <Route path="/Archives" component={Archive} />   
           <Route path="/Contacts" component={Contacts}/>       
+          <Route path="/Replied" component={Replied}/>       
       </div>
       </Fragment>
     </Router>

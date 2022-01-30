@@ -61,9 +61,14 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
 
     return (
         <>
-            <section className="section-content padding-y" style={{ margin: '100px auto', maxWidth: '720px' }}>
+
+            <section className="section-content padding-y" style={{ margin: '20px auto', maxWidth: '720px' }}>
+                <div className="jumbotron text-center">
+                      <h5 className="display-8">Mercide renseigner votre adresse de livraison</h5>
+                      <br/>
+                </div>
                 <div className="container" >
-                <p className="checkout-head" > Adresse de livraison</p>
+
                   <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="row">
                                 <div className="col">

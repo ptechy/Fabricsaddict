@@ -60,67 +60,70 @@ const Contact: FunctionComponent =  () =>{
 
     return (
         <>
-            <section className="section-content padding-y" style={{ margin: '100px auto', maxWidth: '720px' }}>
-                <div className="container" >
 
-                  <form onSubmit={handleSubmit(onSubmit)}>
+        
+          <div  style={{ margin: '60px auto', maxWidth: '720px' }}>
 
-                              
-                              <p className="message-head" >Vous pouvez nous contacter par ce formulaire, nous vous repondrons dans les plus brefs delais</p>
-                              <br/>
-                              <br/>
-                              <div className="row">
-                                <div className="col">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Email"
-                                   {...register('email')}  
-                                   onClick={()=>{  setConfirm("")}}                                 
-                                    size={20} />
-                                </div>
-                                <p className="invalid-field" >{errors.email?.message}</p>
-                                <br /> 
-                                <br /> 
-                                <br /> 
-                                <p className="message-field" >Prenez le temps de relire votre message vous ne pourrez pas le modifier par la suite</p>
-                                <div className="col">
-                                    <textarea
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-4">
+              <label  className="form-label">Vous pouvez nous contacter par ce formulaire, nous vous repondrons dans les plus brefs delais</label>
+              <br/>
+              <br/>
+              <div className="input-group mb-3">
+                <span className="input-group-text" id="basic-addon1">Adresse mail</span>
+
+                <input type="text"
+                       className="form-control"
+                       placeholder="Email"
+                       {...register('email')}  
+                       onClick={()=>{  setConfirm("")}}                                 
+                       size={60} />
+                   
+             
+              </div>
+              <p className="invalid-field" >{errors.email?.message}</p>       
+
+              <label  className="form-label">Prenez le temps de relire votre message vous ne pourrez pas le modifier par la suite</label>
+              <div className="input-group  mb-3">
+                <span className="input-group-text">Message</span>
+                <textarea
                                     id="msg"
                                     name="message"
                                     onClick={()=>{  setConfirm("")}}  
                                     {...register('message')}
-                                                                       rows={10}
-                                    cols={73}
+                                    rows={7}
+                                    cols={90}
                                   
-                                  />                                 
-                                </div>
-                                <p className="invalid-field" >{errors.message?.message}</p>
-                              </div>
-                              <div className="col">    
-                              <input
+                                  />     
+                 
+              </div>
+              <p className="invalid-field" >{errors.message?.message}</p>  
+              <div className="input-group mb-3">
+                <span className="input-group-text" id="basic-addon1">
+                  <ClientCaptcha captchaCode={code =>setCaptchaCode(code)}    backgroundColor={"#e9ecef" }/>
+                  </span>
+                <input
                                     type="text"
                                     className="form-control"
                                     {...register('captcha')}
                                     name="captcha"
-                                    placeholder="inséré ici le code ci-dessous"
+                                    placeholder="inséré ici le code ci-contre"
                                     onClick={()=>{  setConfirmError("")}}  
-                                    size={20} /> 
-                                     <p className="invalid-field" >{errors.captcha?.message}</p>
-                                     <p className="invalid-field" >{confirmError}</p>
-                                     <br />                              
-                               <ClientCaptcha captchaCode={code =>setCaptchaCode(code)} />
-                               <p className="ok-field" >{confirm}</p>
-                              </div>                              
-                              <br />                             
-                              <input type="submit" />
+                                    size={20} />         
 
+              </div>
+              <p className="invalid-field" >{errors.captcha?.message}</p>
+              <p className="invalid-field" >{confirmError}</p>   
+              <p className="ok-field" >{confirm}</p>
 
-                  </form>
-                        
-                </div> 
-            </section>
+            </div>
 
+            <button type="submit" className="btn btn-outline-success">Submit</button>
+          </form>
+          </div>
+          
+          
 
 
         </>

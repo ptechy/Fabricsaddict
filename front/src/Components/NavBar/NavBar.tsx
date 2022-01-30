@@ -1,8 +1,8 @@
-import React, { Fragment, FunctionComponent, useState, useEffect } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import React, { Fragment, FunctionComponent } from 'react';
+import {  Link } from 'react-router-dom';
 import Product from '../../Models/Products/Product'
 import ProductState from '../../Models/Products/ProductState'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import {  useSelector,  } from 'react-redux'
 import './NavBar.css';
 import { relativeTimeRounding } from 'moment';
 
@@ -23,25 +23,33 @@ const NavBar: FunctionComponent<Props> =  (props) =>{
         <Fragment>
         <div className="row fluid">
             <div className="col-sm-4">
-                <nav className="navbar navbar-light">
+                <nav className="navbar navbar-light ">
                     <div className="container">
-                        <Link to="/" className="navbar-brand" onClick={() => props.Filtered(false)}>
+                        <Link to="/" className="navbar-brands" onClick={() => props.Filtered(false)}>
                         <img src="img/logo3.png" alt="FabricsAddict" className="img-fluid"  /> 
                         </Link> 
                     </div>
                 </nav>         
             </div>
             <div className="col-sm-8">
-                <nav className="navbar navbar-light">
+                <nav className="navbar navbar-light containernav">
                     <div className="container">
-                        <Link to="/" className="navbar-brand" onClick={() => props.Filtered(false)} >
-                            <img src="img/home.svg" alt="Accueil" width="24" height="24"   />
+                        <Link to="/" className="navbar-brands" onClick={() => props.Filtered(false)} >
+                            <img src="img/home.svg" alt="Accueil" width="24" height="24"   />  
+                            <span className="navbarTitle" >NOS TISSUS</span>
+                                                   
                         </Link>
-                        <Link to="/Contact" className="navbar-brand">
-                            <img src="img/mail.svg" alt="Email" width="24" height="24" />
+                        <Link to="/Company" className="navbar-brands" onClick={() => props.Filtered(false)} >
+                            <img src="img/check-square.svg" alt="Accueil" width="24" height="24"   />  
+                            <span className="navbarTitle" >QUI SOMMES NOUS ?</span>                       
                         </Link>
-                        <Link to="/Cart" className="navbar-brand" >
-                            <img src="img/basket.svg" alt="Panier" width="24" height="24"/>
+                        <Link to="/Contact" className="navbar-brands">
+                        <img src="img/mail.svg" alt="Email" width="24" height="24" />
+                        <span className="navbarTitle" >NOUS CONTACTER</span>
+                        </Link>
+                        <Link to="/Cart" className="navbar-brands" >
+                            <img src="img/basket.svg" alt="Email" width="24" height="24" />
+                            <span className="navbarTitle" >PANIER</span>
                             <span className="badge rounded-pill bg-warning">{items.length > 0 && items.length}</span>
                         </Link>
                     </div>

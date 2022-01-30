@@ -33,7 +33,7 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
 
 
   const items: ProductState = useSelector( (state: ProductState) => state )
-  const amount = items.total
+
 
 
   useEffect(() => {    
@@ -54,16 +54,21 @@ const reset = () => {
         });
         
         reset()        
-        history.push("/Delivery")
+        history.push({
+          pathname: '/Delivery',
+          state: items
+      })
+        
+
   }
 
 
 
     return (
         <>
-
+            <section className="section-content padding-y" style={{ margin: '20px auto', maxWidth: '500px' }}>
                 <div className="jumbotron text-center">
-                  <h3 className="display-10">CONFIRMER VOTRE COMMANDE ?</h3>
+                  <h3 className="display-10">CONFIRMER VOTRE COMMANDE </h3>
                   <hr />
                   <br />
                 </div>
@@ -76,14 +81,14 @@ const reset = () => {
                                 currency: "EUR"
                             }} >
 
-                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={amount} confirm={commitOrder}  />
+                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={items.total} confirm={commitOrder}  />
 
                         </PayPalScriptProvider>
                 </div>
 
 
                 </div>
-
+            </section>
 
         </>
     )

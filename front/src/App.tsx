@@ -12,6 +12,7 @@ import env from "react-dotenv"
 import Delivery from './Components/Delivery/Delivery'
 import ConfirmDelivery from './Components/Delivery/ConfirmDelivery'
 import Contact from './Components/Contact/Contact'
+import Company from './Components/Company/Company'
 import './Styles/App.css';
 
 
@@ -90,6 +91,7 @@ const App:FunctionComponent = () => {
                   
           <Route path="/Cart" component={Cart}/>
           <Route path="/Contact" component={Contact}/>
+          <Route path="/Company" component={Company}/>
           <Route path="/checkout" component={Checkout}/>     
           <Route path="/Delivery" component={Delivery}/>   
           <Route path="/ConfirmDelivery" component={ConfirmDelivery}/>   

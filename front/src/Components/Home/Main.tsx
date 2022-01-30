@@ -13,7 +13,8 @@ type Props = {
 
 const Main: FunctionComponent<Props> =  ({CustomProducts, Titles, LoadCategory}) =>{
     return (
-
+        <>
+       
         <div className="row">
              <div className="col-sm-2"> 
                 <SideMenu Titles={Titles} LoadCategory={LoadCategory} />
@@ -22,6 +23,7 @@ const Main: FunctionComponent<Props> =  ({CustomProducts, Titles, LoadCategory})
                 <House CustomProducts={CustomProducts} />
             </div> 
         </div>
+        </>
     )
 }
 

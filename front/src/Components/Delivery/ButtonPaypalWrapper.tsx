@@ -26,6 +26,7 @@ const ButtonPaypalWrapper = ({ currency, showSpinner, amount,  confirm }) => {
 
 
     return (<>
+    
             { (showSpinner && isPending) && <div className="spinner" /> }
 
             <script src="https://www.paypal.com/sdk/js?client-id=AS0XhkqGKtnUh_8HiiuDkupz4EQJ8bhaIyiK_fAAWN7R_icFe3qcMTTDq-p-pjNIg91uEK-IjEyyNIYN&currency=EUR"></script>

@@ -14,6 +14,7 @@ import {
 } from "@paypal/react-paypal-js";
 
 import ButtonPaypalWrapper from './ButtonPaypalWrapper' 
+import CartTable from "../Cart/CartTable";
 
 
 type Props = { };
@@ -30,8 +31,6 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
   const order_url        = `${base_api}/order`
 
  const currency = "EUR"
-
-
   const items: ProductState = useSelector( (state: ProductState) => state )
 
 
@@ -58,39 +57,67 @@ const reset = () => {
           pathname: '/Delivery',
           state: items
       })
-        
-
   }
 
 
 
-    return (
-        <>
+return (
+<>
+  <div className="row fluid">
+    <div className="col-sm-8">
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                    <CartTable Items={items.products} />
+                </div>
+                <div className="col-sm-3">
+                  <ul className="list-group">
+                    <li className="list-group-item">Commande</li>
+        
+                    <li className="list-group-item">
+                      <ul className="list-group flex">
+                        <li className="text-left">Sous-Total</li>
+                        <li className="text-right">{items.totalBeforeFees} €</li>
+                      </ul>
+                      <ul className="list-group flex">
+                        <li className="text-left">Frais d'expedition</li>
+                        <li className="text-right">{items.fees} €</li>
+                      </ul>
+                    </li>     
+                    <li className="list-group-item ">
+                      <ul className="list-group flex">
+                        <li className="text-left">Total</li>
+                        <li className="text-right">{items.total} €</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+    </div>
+    <div className="col-sm-4">
             <section className="section-content padding-y" style={{ margin: '20px auto', maxWidth: '500px' }}>
                 <div className="jumbotron text-center">
-                  <h3 className="display-10">CONFIRMER VOTRE COMMANDE </h3>
+                  <h5 className="display-10">CONFIRMER VOTRE COMMANDE </h5>
                   <hr />
                   <br />
                 </div>
                 <div>
-                <div style={{ maxWidth: "495px", minHeight: "200px" }}>
-                        <PayPalScriptProvider
-                            options={{
-                                "client-id": "test",
-                                components: "buttons",
-                                currency: "EUR"
-                            }} >
-
-                          <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={items.total} confirm={commitOrder}  />
-
-                        </PayPalScriptProvider>
-                </div>
-
-
-                </div>
-            </section>
-
-        </>
+                  <div style={{ maxWidth: "495px", minHeight: "200px" }}>
+                          <PayPalScriptProvider
+                              options={{
+                                  "client-id": "test",
+                                  components: "buttons",
+                                  currency: "EUR"
+                              }} >
+                            <ButtonPaypalWrapper currency={currency} showSpinner={true} amount={items.total} confirm={commitOrder}  />
+                          </PayPalScriptProvider>
+                  </div>
+              </div>
+          </section>
+    </div>
+  </div>
+</>
     )
 
 }

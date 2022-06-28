@@ -30,7 +30,6 @@ const App:FunctionComponent = () => {
   const [filtered , setFiltered]                = useState<boolean>(false) // set if filter is active
 
   const reload  = () =>{
-    console.log("Reload")
     loadTitle()
     loadProducts()
   }
@@ -49,7 +48,6 @@ const App:FunctionComponent = () => {
   const loadProducts = async () => {
     await  axios.get(fabrics_url)
     .then(result => {
-      console.log("loadProducts")
       setCustomItems(result.data.data)
     })          
     .catch(error => `Error:${error}`)
@@ -58,7 +56,6 @@ const App:FunctionComponent = () => {
 
   // get filtered products
   const loadCategory  = (repo:string) =>{
-    console.log("loadCategory")
       loadProductByCategory(repo)  
   }
 
@@ -73,7 +70,6 @@ const App:FunctionComponent = () => {
   // loading titles and products only on page refresh
   useEffect( () => {
    
-    console.log("useEffect " )
     loadTitle()
     loadProducts()
 

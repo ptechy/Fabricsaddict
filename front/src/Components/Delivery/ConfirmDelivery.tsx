@@ -15,7 +15,8 @@ import {
 
 import ButtonPaypalWrapper from './ButtonPaypalWrapper' 
 import CartTable from "../Cart/CartTable";
-
+import Product from "../../Models/Products/Product";
+import './ConfirmDelivery.css'
 
 type Props = { };
 
@@ -34,7 +35,6 @@ const Delivery: FunctionComponent<Props> =  (props) =>{
   const items: ProductState = useSelector( (state: ProductState) => state )
 
 
-
   useEffect(() => {    
     
 })
@@ -47,9 +47,9 @@ const reset = () => {
   const commitOrder = async (orderId) => {
       await  axios.post(order_url, {orderId, ...items})
           .then((res) => {
-            console.log(res.data)
+
         }).catch((error) => {
-            console.log(error)
+ 
         });
         
         reset()        
@@ -63,31 +63,59 @@ const reset = () => {
 
 return (
 <>
-  <div className="row fluid">
+  <div className="row fluid"  style={{ margin: '20px auto' }}>
     <div className="col-sm-8">
             <div className="container">
               <div className="row">
                 <div className="col">
-                    <CartTable Items={items.products} />
+                <table  className="table">
+                  <tbody>
+                  <tr>
+                    <th className="cartTable">Produit</th>
+                    <th className="cartTable">Référence</th>
+                    <th className="cartTable">Prix</th>
+                    <th className="cartTable">Quantité</th>
+                    <th className="cartTable">Total</th>
+                  </tr>
+                  {items.products.map((item : Product, index: number) => {
+
+                      let imgPath      = process.env.PUBLIC_URL + '/img/' + item.repo + '/' + item.img;
+
+                      return (
+                          <tr  key={index+1} >
+                            <td  key={index+2} ><img width="70" height="70" src={imgPath} alt="..." />
+                            </td>
+                            <td key={index+3} >{item.title}</td>
+                            <td key={index+4} >{item.price} €</td>
+                            <td key={index+5} >
+                                <div className="btn-group" role="group" aria-label="Basic example">
+                                {item.quantity}
+                                </div>
+                            </td>
+                            <td key={index+6} >{(item.quantity *  item.price).toFixed(2)} € </td>
+                          </tr>)
+                  })}
+                  </tbody>
+                </table>
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <ul className="list-group">
                     <li className="list-group-item">Commande</li>
         
                     <li className="list-group-item">
                       <ul className="list-group flex">
-                        <li className="text-left">Sous-Total</li>
-                        <li className="text-right">{items.totalBeforeFees} €</li>
+                        <li className="text-left">Sous-Total:</li>
+                        <li className="txtr">{items.totalBeforeFees} €</li>
                       </ul>
                       <ul className="list-group flex">
-                        <li className="text-left">Frais d'expedition</li>
-                        <li className="text-right">{items.fees} €</li>
+                        <li className="text-left">Frais d'expedition:</li>
+                        <li className="txtr">{items.fees} €</li>
                       </ul>
                     </li>     
                     <li className="list-group-item ">
                       <ul className="list-group flex">
-                        <li className="text-left">Total</li>
-                        <li className="text-right">{items.total} €</li>
+                        <li className="text-left">Total:</li>
+                        <li  className="txtr">{items.total} €</li>
                       </ul>
                     </li>
                   </ul>
@@ -96,9 +124,9 @@ return (
             </div>
     </div>
     <div className="col-sm-4">
-            <section className="section-content padding-y" style={{ margin: '20px auto', maxWidth: '500px' }}>
+            <section className="section-content padding-y" >
                 <div className="jumbotron text-center">
-                  <h5 className="display-10">CONFIRMER VOTRE COMMANDE </h5>
+                  <h5 className="display-10">CONFIRMER VOTRE COMMANDE</h5>
                   <hr />
                   <br />
                 </div>

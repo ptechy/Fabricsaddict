@@ -85,14 +85,14 @@ return (
                           <tr  key={index+1} >
                             <td  key={index+2} ><img width="70" height="70" src={imgPath} alt="..." />
                             </td>
-                            <td key={index+3} >{item.title}</td>
+                            <td key={index+3} ><span  className="colorBox2">{item.title} </span></td>
                             <td key={index+4} >{item.price} €</td>
                             <td key={index+5} >
                                 <div className="btn-group" role="group" aria-label="Basic example">
                                 {item.quantity}
                                 </div>
                             </td>
-                            <td key={index+6} >{(item.quantity *  item.price).toFixed(2)} € </td>
+                            <td key={index+6} ><span  className="colorBox2">{(item.quantity *  item.price).toFixed(2)} € </span></td>
                           </tr>)
                   })}
                   </tbody>
@@ -100,22 +100,22 @@ return (
                 </div>
                 <div className="col-sm-4">
                   <ul className="list-group">
-                    <li className="list-group-item">Commande</li>
+                    <li className="list-group-item colorDetail backBox2">Commande</li>
         
                     <li className="list-group-item">
                       <ul className="list-group flex">
-                        <li className="text-left">Sous-Total:</li>
+                        <li className="text-left colorDetail">Sous-Total:</li>
                         <li className="txtr">{items.totalBeforeFees} €</li>
                       </ul>
                       <ul className="list-group flex">
-                        <li className="text-left">Frais d'expedition:</li>
+                        <li className="text-left colorDetail">Frais d'expedition:</li>
                         <li className="txtr">{items.fees} €</li>
                       </ul>
                     </li>     
                     <li className="list-group-item ">
                       <ul className="list-group flex">
-                        <li className="text-left">Total:</li>
-                        <li  className="txtr">{items.total} €</li>
+                        <li className="text-left colorDetail">Total:</li>
+                        <li  className="txtr colorTxt">{items.total} €</li>
                       </ul>
                     </li>
                   </ul>

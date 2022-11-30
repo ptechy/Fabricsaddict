@@ -31,22 +31,22 @@ const Cart: FunctionComponent<Props> =  (props) =>{
             </div>
             <div className="col-sm-3">
               <ul className="list-group">
-                <li className="list-group-item">Commande</li>
+                <li className="list-group-item colorDetail backBox2">Commande</li>
      
                 <li className="list-group-item">
                   <ul className="list-group flex">
-                    <li className="text-left">Sous-Total</li>
-                    <li className="text-right">{items.totalBeforeFees} €</li>
+                    <li className="text-left colorDetail">Sous-Total</li>
+                    <li className="text-right align-right">{items.totalBeforeFees} €</li>
                   </ul>
                   <ul className="list-group flex">
-                    <li className="text-left">Frais d'expedition</li>
-                    <li className="text-right">{items.fees} €</li>
+                    <li className="text-left colorDetail">Frais d'expedition</li>
+                    <li className="text-right align-right">{items.fees} €</li>
                   </ul>
                 </li>     
                 <li className="list-group-item ">
                   <ul className="list-group flex">
-                    <li className="text-left">Total</li>
-                    <li className="text-right">{items.total} €</li>
+                    <li className="text-left colorDetail">Total</li>
+                    <li className="text-right align-right colorTxt">{items.total} €</li>
                   </ul>
                 </li>
               </ul>

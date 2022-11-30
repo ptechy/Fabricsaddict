@@ -7,6 +7,7 @@ import { addCustomer } from  '../../State/Actions/ActionCreators'
 import ConfirmDelivery from '../Delivery/ConfirmDelivery'
 import { Redirect } from "react-router";
 import {  useHistory} from "react-router-dom";
+import { Button,Modal } from 'react-bootstrap';
 import './Checkout.css'
 
 
@@ -63,12 +64,9 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
         <>
 
             <section className="section-content padding-y" style={{ margin: '20px auto', maxWidth: '720px' }}>
-                <div className="jumbotron text-center">
-                      <h5 className="display-8">Mercide renseigner votre adresse de livraison</h5>
-                      <br/>
-                </div>
                 <div className="container" >
-
+                <h5 className="colorBox">Merci de renseigner votre adresse de livraison</h5>
+                      <br/>
                   <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="row">
                                 <div className="col">
@@ -132,7 +130,7 @@ const Checkout: FunctionComponent<Props> =  (props) =>{
                                 <p className="invalid-field" >{errors.city?.message}</p>
                         </div>
                         <br />                             
-                        <input type="submit" />
+                        <Button className="btn btn-outline-success" type="submit" >Envoyer</Button>
 
                   </form>
                         

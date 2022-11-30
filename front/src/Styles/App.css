@@ -75,6 +75,7 @@ table {
 	background: #eee;
 }
 
+
 .qty {
 	width: 40px;
 	padding: 5px 0;
@@ -203,4 +204,71 @@ footer {
 		right: 0;
 		top: 60px;
 	}
+}
+
+.btn.btn-outline-success {
+	background: hsl(345, 55%, 96%);
+	color:#000000;
+	border-color: #ced4da;
+}
+
+.row{
+	margin-bottom: 10px;
+}
+
+
+.list-group-item {
+	border-color: #000000;
+}
+
+.bBox:hover {
+	background: hsl(345, 55%, 96%);
+}
+
+.list-group-item-action {
+	color: #6A1D23;
+	font-weight: 500;
+}
+
+
+.modal-body h4  {
+	color: #6A1D23;
+}
+
+
+.btn-outline-secondary {
+	color: #000000;
+	border-color: #000000;
+}
+
+.backBox{
+	background: hsl(345, 55%, 96%);
+
+}
+
+
+.backBox2{
+	background: hsl(345, 55%, 96%);
+
+}
+.colorBox{
+	color: #6A1D23;
+	font-weight: 500;
+}
+
+.colorBox2{
+	color: #6A1D23;
+	font-weight: 700;
+}
+
+.colorTxt {
+	color: #000000;
+	font-weight: 700;
+
+}
+
+.colorDetail {
+	color: #AA927F;
+	font-weight: 700;
+
 }

@@ -30,14 +30,10 @@ const Delivery: FunctionComponent =  () =>{
 
 
                 <div className="jumbotron text-center">
-                  <h1 className="display8">Merci pour votre commande</h1>
+                  <h2 className="colorTxt">Votre commande est en préparation</h2>
                   <hr />
-          
-                  <p className="lead">
-                    <strong>votre commande est en préparation</strong>   
-                  </p>
-                  <p className="lead">
-                    <strong>nous vous livrerons avec les information suivantes :</strong>   
+                  <p className="lead colorBox">
+                    <strong>Nous vous livrerons avec les informations suivantes :</strong>   
                   </p>
                   <br />
                   
@@ -46,7 +42,7 @@ const Delivery: FunctionComponent =  () =>{
                           <div className="col-sm-3">
                                 <div className="row">
                                     <ul className="list-group">
-                                      <li className="list-group-item">Adresse de livraison</li>
+                                      <li className="list-group-item backBox2">Adresse de livraison</li>
                           
                                       <li className="list-group-item">
                                         <ul className="list-group flex">
@@ -89,22 +85,22 @@ const Delivery: FunctionComponent =  () =>{
                           <div className="col-sm-3">
                                 <div className="row">
                                     <ul className="list-group">
-                                      <li className="list-group-item">Commande</li>
+                                      <li className="list-group-item backBox2">Commande</li>
                           
                                       <li className="list-group-item">
                                         <ul className="list-group flex">
-                                          <li className="text-left">Prix</li>
-                                          <li className="text-right">{items.totalBeforeFees} €</li>
+                                          <li className="text-left align-left colorDetail">Prix</li>
+                                          <li className="text-right align-right">{items.totalBeforeFees} €</li>
                                         </ul>
                                         <ul className="list-group flex">
-                                          <li className="text-left">Frais d'expedition</li>
-                                          <li className="text-right">{items.fees} €</li>
+                                          <li className="text-left align-left colorDetail">Frais d'expedition</li>
+                                          <li className="text-right align-right">{items.fees} €</li>
                                         </ul>
                                       </li>     
                                       <li className="list-group-item ">
                                         <ul className="list-group flex">
-                                          <li className="text-left">Total</li>
-                                          <li className="text-right">{items.total} €</li>
+                                          <li className="text-left align-left colorDetail">Total</li>
+                                          <li className="text-right text-right align-right colorTxt">{items.total} €</li>
                                         </ul>
                                       </li>
                                     </ul>

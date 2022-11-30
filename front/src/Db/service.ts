@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { isTemplateExpression } from 'typescript'
-import Category from '../Models/Fabric/Category'
-import Tissu from '../Models/Fabric/Tissu'
+import Category from '../Models/Fabrics/Category'
+import Tissu from '../Models/Fabrics/Tissu'
 
 const base_url = 'http://localhost:4000/api/v1'
 

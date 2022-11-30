@@ -67,11 +67,10 @@ const Contact: FunctionComponent =  () =>{
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
-              <label  className="form-label">Vous pouvez nous contacter par ce formulaire, nous vous repondrons dans les plus brefs delais</label>
-              <br/>
+            <h5 className="display8">Vous pouvez nous contacter par ce formulaire</h5>
               <br/>
               <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1">Adresse mail</span>
+                <span className="input-group-text backBox" id="basic-addon1">Adresse mail</span>
 
                 <input type="text"
                        className="form-control"
@@ -83,10 +82,11 @@ const Contact: FunctionComponent =  () =>{
              
               </div>
               <p className="invalid-field" >{errors.email?.message}</p>       
-
-              <label  className="form-label">Prenez le temps de relire votre message vous ne pourrez pas le modifier par la suite</label>
+              <br/>
+              <br/>
+              <label  className="form-label colorBox">Prenez le temps de relire votre message vous ne pourrez plus le modifier par la suite</label>
               <div className="input-group  mb-3">
-                <span className="input-group-text">Message</span>
+                <span className="input-group-text backBox">Message</span>
                 <textarea
                                     id="msg"
                                     name="message"
@@ -108,7 +108,7 @@ const Contact: FunctionComponent =  () =>{
                                     className="form-control"
                                     {...register('captcha')}
                                     name="captcha"
-                                    placeholder="inséré ici le code ci-contre"
+                                    placeholder="Insérer ici le code ci-contre"
                                     onClick={()=>{  setConfirmError("")}}  
                                     size={20} />         
 

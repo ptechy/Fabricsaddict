@@ -1,6 +1,7 @@
 import React, { FunctionComponent} from 'react';
 import Product from '../../Models/Products/Product';
 import Card from '../Card/Card';
+import './../../Styles/App.css'
 
 type Props = {
     CustomProducts: Product[]

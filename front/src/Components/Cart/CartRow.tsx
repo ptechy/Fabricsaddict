@@ -66,7 +66,7 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             alt="..."
             />
         </td>
-        <td>{props.Item.title}</td>
+        <td><span  className="colorBox2">{props.Item.title}</span></td>
         <td>{props.Item.price} €</td>
         <td>
             <div className="btn-group" role="group" aria-label="Basic example">
@@ -101,7 +101,7 @@ const CartRow: FunctionComponent<Props> =  (props) => {
             X
             </button>
         </td>
-        <td>{(props.Item.quantity *  props.Item.price).toFixed(2)} € </td>
+        <td><span  className="colorBox2">{(props.Item.quantity *  props.Item.price).toFixed(2)} €</span></td>
 
         </tr>
     );

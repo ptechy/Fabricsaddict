@@ -10,9 +10,6 @@ import './Company.css'
 
 const Company: FunctionComponent =  () =>{
 
-
-
-  const divStyle    = { width: 540+'px'}
      
 
     return (
@@ -21,35 +18,29 @@ const Company: FunctionComponent =  () =>{
         <div  style={{ margin: '60px auto', maxWidth: '920px' }}>
 
 
-            <h4 className="display8">Fabrics Addict au service de ses clients </h4>
+            <h3 className="display8">Fabrics Addict au service de ses clients </h3>
             <hr />
             <br/>
 
 
-            <div className="card">
-                <div className="card-header">
-                  Qualité
-                </div>
+            <div className="card comp">
+                <div className="card-header backBox"><h4>Qualité</h4></div>
                 <div className="card-body">
                   <h5 className="card-title">Special title treatment</h5>
                   <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 </div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                  Rigueur
-                </div>
+            <div className="card comp">
+                <div className="card-header backBox"><h4>Rigueur</h4></div>
                 <div className="card-body">
                   <h5 className="card-title">Special title treatment</h5>
                   <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 </div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                  Vie privée
-                </div>
+            <div className="card comp">
+                <div className="card-header backBox"><h4>Vie privée</h4></div>
                 <div className="card-body">
                   <h5 className="card-title">Special title treatment</h5>
                   <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>

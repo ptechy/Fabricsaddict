@@ -22,13 +22,14 @@ type Props = {
 const Card: FunctionComponent<Props> =  (props) =>{
 
 //https://dev.to/anxinyang/create-an-image-magnifier-with-react-3fd7
-   const magnifier = {
+   const magnifier = {  
                         "src": "src",
                         "width": 120, //initial width
                         "height": 90,  //initialheight
                         "zoomWidth": 240,
                         "zoomHeight": 180,
-                        "zoomLevel" : 2 }
+                        "zoomLevel" : 2 
+                     }
 
     const [[x, y], setXY] = useState([0, 0]);
     const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -40,7 +41,7 @@ const Card: FunctionComponent<Props> =  (props) =>{
     let magStyle    = { width: magnifier.width+'px', height:magnifier.height + 'px',  margin: 3 + 'px'  };
 
     let imgContainerStyle    = {alignItems: 'center'};
-    let imgStyle    = { width: 250+'px', height:350 + 'px', margin: 3 + 'px'  };
+    let imgStyle    = { width: 250+'px', height:350 + 'px', margin: 3 + 'px' ,  border: '1px solid #000000'};
     let modalIdx    =  props.Tissu.repo + props.Idx
     let modalId     = '#' + modalIdx
     let imgPath     = process.env.PUBLIC_URL + '/img/' + props.Tissu.repo + '/' + props.Tissu.img
@@ -74,14 +75,16 @@ const Card: FunctionComponent<Props> =  (props) =>{
 
         const addQty = () =>{
             let current = qty
+
             if(current < 10)
-             setQty(qty+1)
+                setQty(qty+1)
         }
 
         const removeQty = () =>{
             let current = qty
+
             if(current >1)
-             setQty(qty-1)
+                setQty(qty-1)
         }
 
 

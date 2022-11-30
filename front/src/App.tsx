@@ -6,7 +6,7 @@ import Main from './Components/Home/Main'
 import Product from './Models/Products/Product'
 import Cart from './Components/Cart/Cart'
 import Checkout from './Components/Checkout/Checkout'
-import Category from './Models/Fabric/Category'
+import Category from './Models/Fabrics/Category'
 import axios from 'axios'
 import env from "react-dotenv"
 import Delivery from './Components/Delivery/Delivery'

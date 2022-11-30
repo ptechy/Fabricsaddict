@@ -1,15 +1,3 @@
-.outline-secondary.zz{
-    color: #011120;
-
-}
-
-
-.ok-field{
-
-
-
-}
-
 
 .center {
     display: block;
@@ -22,4 +10,12 @@
 .articlePrice {
     margin-left: 5px;
     margin-right: 15px;
+}
+
+.img-thumbnail {
+	border-color: #000000;
+}
+
+.card-title {
+	color: #6A1D23;
 }
